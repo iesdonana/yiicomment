@@ -18,7 +18,7 @@ class UsuariosSearch extends Usuarios
     {
         return [
             [['id'], 'integer'],
-            [['log_us', 'nombre', 'apellido', 'email', 'password', 'url_img', 'img_name'], 'safe'],
+            [['log_us', 'nombre', 'apellido', 'email', 'password', 'rol', 'auth_key', 'url_img', 'img_name'], 'safe'],
         ];
     }
 
@@ -66,6 +66,8 @@ class UsuariosSearch extends Usuarios
             ->andFilterWhere(['ilike', 'apellido', $this->apellido])
             ->andFilterWhere(['ilike', 'email', $this->email])
             ->andFilterWhere(['ilike', 'password', $this->password])
+            ->andFilterWhere(['ilike', 'rol', $this->rol])
+            ->andFilterWhere(['ilike', 'auth_key', $this->auth_key])
             ->andFilterWhere(['ilike', 'url_img', $this->url_img])
             ->andFilterWhere(['ilike', 'img_name', $this->img_name]);
 

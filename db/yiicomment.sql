@@ -11,7 +11,9 @@ CREATE TABLE usuarios
     ,   nombre      varchar(60)     NOT NULL
     ,   apellido    varchar(60)     NOT NULL
     ,   email       varchar(255)    NOT NULL UNIQUE
-    ,   password    varchar(20)     NOT NULL
+    ,   password    varchar(255)    NOT NULL
+    ,   rol         varchar(255)    NOT NULL
+    ,   auth_key    varchar(255)
     ,   url_img     varchar(2048)   
     ,   img_name    varchar(255)
 );
