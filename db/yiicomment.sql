@@ -45,3 +45,13 @@ CREATE TABLE seguidores
   , seguido_id      BIGINT      REFERENCES usuarios (id)
   , PRIMARY KEY (seguidor_id, seguido_id)
 );
+
+INSERT INTO usuarios (log_us, nombre, apellido, email, password, rol, auth_key)
+VALUES  ('esscart', 'david', 'florido', 'david.xipi99@hotmail.com', 'hola', 'admin', crypt('hola', gen_salt('bf', 10))),
+        ('admin', 'pepe', 'garcia', 'admin@hotmail.com', 'hola', 'admin', crypt('hola', gen_salt('bf', 10))),
+        ('mike', 'miguel', 'sierra', 'jose@hotmail.com', 'hola', 'usuario', crypt('hola', gen_salt('bf', 10)));
+
+INSERT INTO comentarios (usuario_id, text)
+VALUES  (3, 'este es mi primer comentario'),
+        (3, 'hola'),
+        (2, 'buenas noches');

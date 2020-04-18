@@ -27,9 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'nombre')->textInput() ?>
         <?= $form->field($model, 'apellido')->textInput() ?>
         <?= $form->field($model, 'email')->textInput() ?>
+        <?= $form->field($model, 'rol')->textInput() ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
         <?= $form->field($model, 'password_repeat')->passwordInput() ?>
-        <?= $form->field($model, 'rol')->textInput() ?>
 
         <div class="form-group">
             <div class="offset-sm-2">
@@ -38,4 +38,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
     <?php ActiveForm::end(); ?>
-</div>
+</div> 
+

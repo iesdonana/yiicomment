@@ -3,10 +3,15 @@
 namespace app\controllers;
 
 use app\models\Usuarios;
+use app\models\UsuariosSearch;
 use Yii;
 use yii\bootstrap4\Alert;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\helpers\VarDumper;
 
 class UsuariosController extends Controller
 {
@@ -42,31 +47,25 @@ class UsuariosController extends Controller
         ]);
     }
 
-    public function actionUpdate($id = null)
+    public function actionIndex()
     {
-        if ($id === null) {
-            if (Yii::$app->user->isGuest) {
-                Yii::$app->session->setFlash('error', 'Debe estar logueado.');
-                return $this->goHome();
-            } else {
-                $model = Yii::$app->user->identity;
-            }
-        } else {
-            $model = Usuarios::findOne($id);
-        }
+        $query = (new Query())
+            ->select([
+                'log_us',
+                'comentarios.text as mensaje',
+            ])
+            ->from('usuarios')
+            ->rightJoin('comentarios', 'usuario_id = usuarios.id')
+            ->orderBy('id')
+            ->all();
 
-        $model->scenario = Usuarios::SCENARIO_UPDATE;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
-            return $this->goHome();
-        }
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $query,
+        ]);
 
-        $model->password = '';
-        $model->password_repeat = '';
-
-        return $this->render('update', [
-            'model' => $model,
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
         ]);
     }
 }

@@ -32,7 +32,6 @@ use yii\web\IdentityInterface;
 class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const SCENARIO_CREAR = 'crear';
-    const SCENARIO_UPDATE = 'update';
 
     public $password_repeat;
 
@@ -50,31 +49,11 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['log_us', 'nombre', 'apellido', 'email', 'rol'], 'required'],
-            [
-                ['password'],
-                'required',
-                'on' => [self::SCENARIO_DEFAULT, self::SCENARIO_CREAR],
-            ],
-            [
-                ['password'],
-                'trim',
-                'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
-            ],
+            [['log_us', 'nombre', 'apellido', 'email', 'rol', 'password'], 'required'],
             [['log_us', 'nombre', 'apellido'], 'string', 'max' => 60],
             [['email', 'password', 'rol', 'auth_key', 'img_name'], 'string', 'max' => 255],
-            [
-                [['password_repeat'], 'compare', 'compareAttribute' => 'password'],
-                'required',
-                'on' => self::SCENARIO_CREAR
-            ],
-            [
-                ['password_repeat'],
-                'compare',
-                'compareAttribute' => 'password',
-                'skipOnEmpty' => false,
-                'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
-            ],
+            [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
+            [['password_repeat'], 'compare', 'compareAttribute' => 'password'],
             [['url_img'], 'string', 'max' => 2048],
             [['email'], 'unique'],
             [['log_us'], 'unique'],
@@ -122,7 +101,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function validateAuthKey($authKey)
     {
-        // return $this->auth_key === $authKey;
+        return $this->auth_key === $authKey;
     }
 
     public static function findByUsername($nombre)
@@ -146,14 +125,6 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 $security = Yii::$app->security;
                 $this->auth_key = $security->generateRandomString();
                 $this->password = $security->generatePasswordHash($this->password);
-            }
-        } else {
-            if ($this->scenario === self::SCENARIO_UPDATE) {
-                if ($this->password === '') {
-                    $this->password = $this->getOldAttribute('password');
-                } else {
-                    $this->password = $security->generatePasswordHash($this->password);
-                }
             }
         }
 
