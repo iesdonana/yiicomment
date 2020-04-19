@@ -8,6 +8,9 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\Comentarios;
+use app\models\Usuarios;
+use Symfony\Component\VarDumper\VarDumper;
 
 class SiteController extends Controller
 {
@@ -65,7 +68,26 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $idActual = Yii::$app->user->id;
+
+        $model = Usuarios::findOne(['id' => $idActual]);
+
+        $ids = $model->getSeguidos()->select('id')->column();
+        
+        array_push($ids, $idActual);
+
+        $comentarios = Comentarios::find('comentario c')->where(['IN', 'usuario_id', $ids])->orderBy(['created_at' => SORT_DESC])->all();
+
+        $publicar = new Comentarios(['usuario_id' => $idActual]);
+
+        if ($publicar->load(Yii::$app->request->post()) && $publicar->save()) {
+            return $this->redirect('site/index');
+        }
+
+        return $this->render('index', [
+            'comentarios' => $comentarios,
+            'publicar' => $publicar
+        ]);
     }
 
     /**
