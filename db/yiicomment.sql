@@ -25,7 +25,7 @@ CREATE TABLE comentarios
         id              BIGSERIAL       PRIMARY KEY
     ,   usuario_id      BIGINT          NOT NULL REFERENCES usuarios (id) ON DELETE CASCADE
     ,   text            varchar(280)    NOT NULL
-    ,   created_at      TIMESTAMP(0)    NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ,   created_at      TIMESTAMP(0)    DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS megustas CASCADE;
@@ -55,3 +55,6 @@ INSERT INTO comentarios (usuario_id, text)
 VALUES  (3, 'este es mi primer comentario'),
         (3, 'hola'),
         (2, 'buenas noches');
+
+INSERT INTO seguidores (seguidor_id, seguido_id)
+VALUES (3, 1);

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Comentarios;
 use app\models\ComentariosSearch;
+use Psy\VarDumper\Dumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -64,10 +65,17 @@ class ComentariosController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Comentarios();
+        $id = Yii::$app->user->id;
+
+        if ($id === null) {
+            Yii::$app->session->setFlash('error', 'Debe estar logueado.');
+            return $this->goHome();
+        }
+
+        $model = new Comentarios(['usuario_id' => $id]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index.php?r=comentarios/index');
         }
 
         return $this->render('create', [
