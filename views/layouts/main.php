@@ -41,9 +41,8 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Comentarios', 'url' => ['comentarios/index']],
-            ['label' => 'Usuarios', 'url' => ['usuarios/index']],
+            ['label' => 'Inicio', 'url' => ['/site/index']],
+            ['label' => 'Busqueda', 'url' => ['comentarios/index']],
             [
                 'label'=> 'Usuarios',
                 'items' => [
@@ -52,7 +51,7 @@ AppAsset::register($this);
                     ) : (
                         Html::beginForm(['/site/logout'], 'post')
                         . Html::submitButton(
-                            'Logout (' . Yii::$app->user->identity->nombre . ')',
+                            'Logout (' . Yii::$app->user->identity->log_us . ')',
                             ['class' => 'dropdown-item'],
                         )
                         . Html::endForm()
@@ -66,21 +65,10 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="float-left">&copy; YiiComment <?= date('Y') ?></p>
-
-        <p class="float-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>

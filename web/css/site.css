@@ -99,3 +99,15 @@ a.desc:after {
 .nav > li > form > button.logout:hover {
     background-color: transparent;
 }
+
+div h3 {
+    color: #c55;
+}
+
+textarea {
+    resize: none;
+}
+
+* {
+    font-family: 'Raleway', sans-serif;
+}

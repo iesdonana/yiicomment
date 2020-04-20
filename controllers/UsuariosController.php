@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Comentarios;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
@@ -49,23 +50,14 @@ class UsuariosController extends Controller
 
     public function actionIndex()
     {
-        $query = (new Query())
-            ->select([
-                'log_us',
-                'comentarios.text as mensaje',
-            ])
-            ->from('usuarios')
-            ->rightJoin('comentarios', 'usuario_id = usuarios.id')
-            ->orderBy('id')
-            ->all();
+        $model = Usuarios::findOne(['id' => Yii::$app->user->id]);
 
+        $ids = $model->getSeguidos()->select('id')->column();
 
-        $dataProvider = new ArrayDataProvider([
-            'allModels' => $query,
-        ]);
+        $comentarios = Comentarios::find('comentario c')->where(['IN', 'usuario_id', $ids])->all();
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'comentarios' => $comentarios
         ]);
     }
 }

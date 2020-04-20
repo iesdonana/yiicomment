@@ -76,7 +76,7 @@ class SiteController extends Controller
         
         array_push($ids, $idActual);
 
-        $comentarios = Comentarios::find('comentario c')->where(['IN', 'usuario_id', $ids])->orderBy(['created_at' => SORT_DESC])->all();
+        $comentarios = Comentarios::find()->where(['IN', 'usuario_id', $ids])->orderBy(['created_at' => SORT_DESC])->all();
 
         $publicar = new Comentarios(['usuario_id' => $idActual]);
 

@@ -49,7 +49,7 @@ class Comentarios extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'usuario_id' => 'Usuario ID',
-            'text' => 'Text',
+            'text' => '',
             'created_at' => 'Created At',
         ];
     }
