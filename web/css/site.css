@@ -111,3 +111,7 @@ textarea {
 * {
     font-family: 'Raleway', sans-serif;
 }
+
+.comentarios {
+    border: solid 1px;
+}

@@ -1,9 +1,9 @@
 <?php
 
 use app\models\Usuarios;
-use Symfony\Component\VarDumper\VarDumper;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Url;
 
 $titulo = Usuarios::findOne(Yii::$app->user->id);
 
@@ -18,9 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="form-group">        
                 <?= Html::submitButton('Publicar', ['class' => 'btn btn-success']) ?>
             </div>
-    <?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
-    <div class="row">
+    <div class="container">
         <div class="col-12 col-lg-6 mt-5 order-1 order-lg-0">
             <?php foreach ($comentarios as $comentario) : ?>
                 <?php 
@@ -28,8 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     $log = Usuarios::findOne(['id' => $id]);
                 ?>
                 <div class="row">
-                    <div class="col">
-                        <h3 class=""><?= $log['log_us']?></h3>
+                    <div class="col-md-4">
+                    <?php $form = ActiveForm::begin(); ?>
+                    <?php $url = Url::to(['usuarios/view', 'id' => $comentario['usuario_id']]); ?>
+                        <a href=<?= $url ?>><h3 class=""><?= $log['log_us']?></h3></a>
+                    <?php ActiveForm::end(); ?>
+                    </div>
+                    <div class="col-6 col-md-4 comentarios">
                         <p class=""><?= $comentario['text']?></p>
                     </div>
                 </div>

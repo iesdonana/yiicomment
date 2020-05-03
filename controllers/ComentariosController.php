@@ -9,6 +9,7 @@ use Psy\VarDumper\Dumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 
 /**
  * ComentariosController implements the CRUD actions for Comentarios model.
@@ -75,12 +76,8 @@ class ComentariosController extends Controller
         $model = new Comentarios(['usuario_id' => $id]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index.php?r=comentarios/index');
+            return $this->redirect('index.php');
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**

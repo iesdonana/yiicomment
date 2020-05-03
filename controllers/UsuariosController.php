@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Comentarios;
+use app\models\Seguidores;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
@@ -58,6 +59,23 @@ class UsuariosController extends Controller
 
         return $this->render('index', [
             'comentarios' => $comentarios
+        ]);
+    }
+
+    public function actionView($id)
+    {
+        $model = Usuarios::findIdentity($id);
+
+        $seguir = new Seguidores();
+
+        if ($seguir->load(Yii::$app->request->post()) && $seguir->save()) {
+            Yii::$app->session->setFlash('success', 'Se ha seguido .');
+            return $this->redirect('site/index');
+        }
+
+        return $this->render('view', [
+            'model' => $model,
+            'seguir' => $seguir
         ]);
     }
 }

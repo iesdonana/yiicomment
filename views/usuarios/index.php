@@ -14,32 +14,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'log_us',
-            'nombre',
-            'apellido',
-            'email:email',
-            //'password',
-            //'rol',
-            //'auth_key',
-            //'url_img:url',
-            //'img_name',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <div class="row">
+        <div class="col-12 col-lg-6 mt-5 order-1 order-lg-0">
+            <?php foreach ($comentarios as $comentario) : ?>
+                <div class="row">
+                    <div class="col">
+                        <p class=""><?= $comentario['text']?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+    </div>
 
 
 </div>

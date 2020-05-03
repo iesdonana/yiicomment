@@ -63,17 +63,14 @@ class SeguidoresController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($seguido_id)
     {
-        $model = new Seguidores();
+        $model = new Seguidores(['seguidor_id' => Yii::$app->user->id]);
+        $model = (['seguido_id' => $seguido_id]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'seguidor_id' => $model->seguidor_id, 'seguido_id' => $model->seguido_id]);
+            return Yii::$app->session->setFlash('success', 'Se ha seguido correctamente.');
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**

@@ -81,6 +81,7 @@ class SiteController extends Controller
         $publicar = new Comentarios(['usuario_id' => $idActual]);
 
         if ($publicar->load(Yii::$app->request->post()) && $publicar->save()) {
+            Yii::$app->session->setFlash('success', 'Se ha publicado tu comentario.');
             return $this->redirect('site/index');
         }
 
