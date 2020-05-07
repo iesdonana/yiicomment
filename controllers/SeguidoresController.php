@@ -8,6 +8,7 @@ use app\models\SeguidoresSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 
 /**
  * SeguidoresController implements the CRUD actions for Seguidores model.
@@ -22,9 +23,6 @@ class SeguidoresController extends Controller
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
             ],
         ];
     }
@@ -65,12 +63,15 @@ class SeguidoresController extends Controller
      */
     public function actionCreate($seguido_id)
     {
-        $model = new Seguidores(['seguidor_id' => Yii::$app->user->id]);
-        $model = (['seguido_id' => $seguido_id]);
+        $model = new Seguidores([
+            'seguido_id' => $seguido_id,
+            'seguidor_id' => Yii::$app->user->id
+        ]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return Yii::$app->session->setFlash('success', 'Se ha seguido correctamente.');
-        }
+        $model->save();
+
+        Yii::$app->session->setFlash('success', 'Se ha seguido.');
+        return $this->redirect(['usuarios/view', 'id' => $seguido_id])->send();
     }
 
     /**
@@ -102,11 +103,20 @@ class SeguidoresController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($seguidor_id, $seguido_id)
+    public function actionDelete($seguido_id)
     {
-        $this->findModel($seguidor_id, $seguido_id)->delete();
+        $model = Seguidores::find()->andWhere([
+            'seguido_id' => $seguido_id,
+            'seguidor_id' => Yii::$app->user->id,
+        ])->one();
 
-        return $this->redirect(['index']);
+        if ($model) {
+            $model->delete();
+            Yii::$app->session->setFlash('success', 'Se ha dejado de seguir.');
+            return $this->redirect(['usuarios/view', 'id' => $seguido_id])->send();
+        } else {
+            return Yii::$app->session->setFlash('success', 'Ha ocurrido un error.');
+        }
     }
 
     /**
@@ -117,7 +127,7 @@ class SeguidoresController extends Controller
      * @return Seguidores the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($seguidor_id, $seguido_id)
+    public function findModel($seguidor_id, $seguido_id)
     {
         if (($model = Seguidores::findOne(['seguidor_id' => $seguidor_id, 'seguido_id' => $seguido_id])) !== null) {
             return $model;

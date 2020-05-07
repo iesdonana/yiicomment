@@ -20,9 +20,9 @@ $request = Yii::$app->request;
 
     <?php var_dump($model['id']) ?>
 
-    <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($seguir, 'seguido_id')->hiddenInput(['value'=> $model['id']])->label(false); ?>
-        <?= $form->field($seguir, 'seguidor_id')->hiddenInput(['value'=> Yii::$app->user->id])->label(false); ?>
-        <?= Html::submitButton('Seguir', ['class' => 'btn btn-success']) ?>
-    <?php ActiveForm::end(); ?>
+    <?php if ($r['texto'] == 'Seguir') : ?>
+        <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
+    <?php else : ?>
+        <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
+    <?php endif; ?>
 </div>

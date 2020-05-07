@@ -5,15 +5,10 @@ namespace app\controllers;
 use app\models\Comentarios;
 use app\models\Seguidores;
 use app\models\Usuarios;
-use app\models\UsuariosSearch;
 use Yii;
-use yii\bootstrap4\Alert;
-use yii\data\ActiveDataProvider;
-use yii\data\ArrayDataProvider;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\helpers\VarDumper;
+
 
 class UsuariosController extends Controller
 {
@@ -66,16 +61,25 @@ class UsuariosController extends Controller
     {
         $model = Usuarios::findIdentity($id);
 
-        $seguir = new Seguidores();
+        $seguir = Seguidores::find()
+        ->andWhere([
+            'seguidor_id' => Yii::$app->user->id,
+            'seguido_id' => $id
+        ])->one();
 
-        if ($seguir->load(Yii::$app->request->post()) && $seguir->save()) {
-            Yii::$app->session->setFlash('success', 'Se ha seguido .');
-            return $this->redirect('site/index');
+        $r =[];
+
+        if ($seguir) {
+            $r['texto'] = 'Dejar de Seguir';
+        } else {
+            $r['texto'] = 'Seguir';
         }
+    
 
         return $this->render('view', [
             'model' => $model,
-            'seguir' => $seguir
+            'r' => $r,
+            'seguido_id' => $id
         ]);
     }
 }
