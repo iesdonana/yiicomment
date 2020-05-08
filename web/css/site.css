@@ -112,6 +112,17 @@ textarea {
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
 }
 
-.comentarios {
-    border: solid 1px;
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.cadena {
+    overflow-wrap: break-word;
+}
+
+div[class|="col"] {
+    border: 1px solid;
 }
