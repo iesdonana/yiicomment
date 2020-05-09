@@ -1,8 +1,3 @@
-html,
-body {
-    height: 100%;
-}
-
 .wrap {
     min-height: 100%;
     height: auto;
@@ -109,20 +104,16 @@ textarea {
 }
 
 * {
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
+body {
+    background-color: #15202B;
+    color: #C2C4C7; 
+}
 
 
 a {
     text-decoration: none;
     color: black;
-}
-
-.cadena {
-    overflow-wrap: break-word;
-}
-
-div[class|="col"] {
-    border: 1px solid;
 }

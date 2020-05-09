@@ -64,7 +64,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container" style="padding-left: 0;">
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
