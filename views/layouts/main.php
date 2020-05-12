@@ -9,6 +9,7 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Usuarios;
 
 AppAsset::register($this);
 ?>
@@ -22,6 +23,8 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <?php $log = Usuarios::findOne(['id' => Yii::$app->user->id]) ?>
+    
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -44,7 +47,7 @@ AppAsset::register($this);
             ['label' => 'Inicio', 'url' => ['/site/index']],
             ['label' => 'Busqueda', 'url' => ['comentarios/index']],
             [
-                'label'=> 'Usuarios',
+                'label'=> Yii::$app->user->isGuest ? 'Usuarios' : $log['log_us'],
                 'items' => [
                     Yii::$app->user->isGuest ? (
                         ['label' => 'Login', 'url' => ['/site/login']]

@@ -14,11 +14,7 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $request = Yii::$app->request;
-    /**<?php if ($r['texto'] == 'Seguir') : ?>
-        <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
-    <?php else : ?>
-        <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
-    <?php endif; ?>*/
+    /***/
 ?>
 <div class="row">
     <div class="col">
@@ -50,9 +46,9 @@ $request = Yii::$app->request;
                                         <div class="col-4 d-flex justify-content-center">
                                             <a href="<?= $url2 ?>">
                                                 <?php if (isset($megusta)) : ?>
-                                                    <img src="heart.svg" alt="like">
+                                                    <img src="like.png" alt="like">
                                                 <?php else : ?>
-                                                    <img src="heart-outline.svg" alt="dislike">
+                                                    <img src="dislike.svg" alt="dislike">
                                                 <?php endif; ?>
                                             </a>
                                         </div>
@@ -73,7 +69,36 @@ $request = Yii::$app->request;
             <?php endforeach; ?>
             </div>
             <div class="col-4">
-            
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h1><?= $model['log_us'] ?></h1>
+                    </div>
+                    <div class="col-12">
+                        <hr>
+                    </div>
+                    <div class="col-3 d-flex justify-content-center">
+                        <h6>Seguidores</h6>
+                    </div>
+                    <div class="col-3 d-flex justify-content-center">
+                        <h6><?= $num_segr ?></h6>
+                    </div>
+                    <div class="col-3 d-flex justify-content-center">
+                        <h6>Seguidos</h6>
+                    </div>
+                    <div class="col-3 d-flex justify-content-center">
+                        <h6><?= $num_sego ?></h6>
+                    </div>
+                    <div class="col-12">
+                        <hr>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <?php if ($r['texto'] == 'Seguir') : ?>
+                            <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
+                        <?php else : ?>
+                            <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
