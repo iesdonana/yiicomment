@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\Comentarios;
+use app\models\Megustas;
 use app\models\Usuarios;
 use Symfony\Component\VarDumper\VarDumper;
 
@@ -77,6 +78,8 @@ class SiteController extends Controller
         array_push($ids, $idActual);
 
         $comentarios = Comentarios::find()->where(['IN', 'usuario_id', $ids])->orderBy(['created_at' => SORT_DESC])->all();
+
+        $megustas = Megustas::find()->where(['IN', 'usuario_id', $ids])->all();
 
         $publicar = new Comentarios(['usuario_id' => $idActual]);
 

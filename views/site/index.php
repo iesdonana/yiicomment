@@ -22,37 +22,62 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-12">
                         <?php $form = ActiveForm::begin(); ?>
                             <?= $form->field($publicar, 'text')->textarea(['maxlength' => true, 'placeholder' => 'Publica algo...', ]) ?>
-                            <div class="form-group">        
-                                <?= Html::submitButton('Publicar', ['class' => 'btn btn-success']) ?>
+                            <div class="form-group d-flex justify-content-end">        
+                                <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary']) ?>
                             </div>
                         <?php ActiveForm::end(); ?>
                     </div>
+                    <div class="col-12">
+                        <hr>
+                    </div> 
                 </div>
                 <?php foreach ($comentarios as $comentario) : ?>
                     <?php 
                         $id = $comentario['usuario_id'];
                         $log = Usuarios::findOne(['id' => $id]);
-                        $url = Url::to(['comentarios/view', 'id' => $comentario['id']]);
+                        $url1 = Url::to(['comentarios/view', 'id' => $comentario['id']]);
+                        $url2 = Url::to(['megustas/create', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
                     ?>
                     <div class="row">
                         <div class="col">
                             <div class="card">
                                 <div class="card-header">
-                                    <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id]) ?>
+                                    <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
                                 </div>
-                                <a href="<?= $url ?>">
+                                <a href="<?= $url1 ?>">
                                     <div class="card-body">
                                         <blockquote class="blockquote mb-0">
-                                            <p><?= $comentario['text'] ?></p>
+                                            <p class="text-light"><?= $comentario['text'] ?></p>
                                         </blockquote>
                                     </div>
                                 </a>
                                 <div class="card-footer">
-                                    
+                                    <a href="<?= $url2 ?>">
+                                    <div class="row">
+                                        <div class="col-4 d-flex justify-content-center">
+                                            <a href="<?= $url2 ?>">
+                                                <?php if (isset($megusta)) : ?>
+                                                    <img src="heart.svg" alt="like">
+                                                <?php else : ?>
+                                                    <img src="heart-outline.svg" alt="dislike">
+                                                <?php endif; ?>
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <hr>
+                    </div> 
                 <?php endforeach; ?>
             </div>
             <div class="col-4">

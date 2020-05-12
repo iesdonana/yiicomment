@@ -59,13 +59,24 @@ class UsuariosController extends Controller
 
     public function actionView($id)
     {
-        $model = Usuarios::findIdentity($id);
+        $model = Usuarios::findOne(['id' => $id]);
 
         $seguir = Seguidores::find()
         ->andWhere([
             'seguidor_id' => Yii::$app->user->id,
             'seguido_id' => $id
         ])->one();
+
+        $ids = $model->getSeguidos()->select('id')->column();
+        array_push($ids, $id);
+
+        $comentarios = Comentarios::find()->where(['IN', 'usuario_id', $ids])->orderBy(['created_at' => SORT_DESC])->all();
+
+        $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
+        $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
+
+        $num_segr = count($seguidores);
+        $num_sego = count($seguidos);
 
         $r =[];
 
@@ -79,7 +90,10 @@ class UsuariosController extends Controller
         return $this->render('view', [
             'model' => $model,
             'r' => $r,
-            'seguido_id' => $id
+            'seguido_id' => $id,
+            'num_segr' => $num_segr,
+            'num_sego' => $num_sego,
+            'comentarios' => $comentarios,
         ]);
     }
 }

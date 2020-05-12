@@ -112,6 +112,22 @@ body {
     color: #C2C4C7; 
 }
 
+.card {
+    background-color: #15202B;
+    border-color: white;
+}
+
+.card-header {
+    border-color: white;
+}
+
+.card-body {
+    border-color: white;
+}
+
+.card-footer {
+    border-color: white;
+}
 
 a {
     text-decoration: none;
