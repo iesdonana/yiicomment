@@ -102,11 +102,19 @@ class MegustasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($usuario_id, $comentario_id)
+    public function actionDelete($comentario_id)
     {
-        $this->findModel($usuario_id, $comentario_id)->delete();
+        $model = Megustas::find()->andWhere([
+            'comentario_id' => $comentario_id,
+            'usuario_id' => Yii::$app->user->id,
+        ])->one();
 
-        return $this->redirect(['index']);
+        if ($model) {
+            $model->delete();
+            return $this->redirect(['site/index'])->send();
+        } else {
+            return Yii::$app->session->setFlash('success', 'Ha ocurrido un error.');
+        }
     }
 
     /**

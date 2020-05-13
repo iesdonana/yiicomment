@@ -4,6 +4,7 @@ use app\models\Usuarios;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
+use app\models\Megustas;
 
 $titulo = Usuarios::findOne(Yii::$app->user->id);
 
@@ -36,7 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         $id = $comentario['usuario_id'];
                         $log = Usuarios::findOne(['id' => $id]);
                         $url1 = Url::to(['comentarios/view', 'id' => $comentario['id']]);
-                        $url2 = Url::to(['megustas/create', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
+                        $megusta = Megustas::find()->where(['usuario_id' => $id, 'comentario_id' => $comentario['id']])->one();
+
+                    if (isset($megusta)) {
+                            $url2 = Url::to(['megustas/delete', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);    
+                    } else {
+                            $url2 = Url::to(['megustas/create', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
+                    }
                     ?>
                     <div class="row">
                         <div class="col">
@@ -57,9 +64,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="col-4 d-flex justify-content-center">
                                             <a href="<?= $url2 ?>">
                                                 <?php if (isset($megusta)) : ?>
-                                                    <img src="heart.svg" alt="like">
+                                                    <img src="like.png" alt="like">
                                                 <?php else : ?>
-                                                    <img src="heart-outline.svg" alt="dislike">
+                                                    <img src="dislike.svg" alt="dislike">
                                                 <?php endif; ?>
                                             </a>
                                         </div>

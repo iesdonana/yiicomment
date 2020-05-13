@@ -68,6 +68,11 @@ class SeguidoresController extends Controller
             'seguidor_id' => Yii::$app->user->id
         ]);
 
+        if ($model['seguido_id'] == $model['seguidor_id']) {
+            Yii::$app->session->setFlash('error', 'Ha ocurrido un error, uno no se puede seguir a si mismo.');
+            return $this->redirect(['usuarios/view', 'id' => $seguido_id])->send();
+        }
+
         $model->save();
 
         Yii::$app->session->setFlash('success', 'Se ha seguido.');

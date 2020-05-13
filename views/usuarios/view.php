@@ -25,8 +25,13 @@ $request = Yii::$app->request;
                         $id = $comentario['usuario_id'];
                         $log = Usuarios::findOne(['id' => $id]);
                         $url1 = Url::to(['comentarios/view', 'id' => $comentario['id']]);
-                        $url2 = Url::to(['megustas/create', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
                         $megusta = Megustas::find()->where(['usuario_id' => $id, 'comentario_id' => $comentario['id']])->one();
+                        
+                    if (isset($megusta)) {
+                        $url2 = Url::to(['megustas/delete', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
+                    } else {
+                        $url2 = Url::to(['megustas/create', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
+                    }
                     ?>
                     <div class="row">
                         <div class="col">
@@ -69,23 +74,23 @@ $request = Yii::$app->request;
             <?php endforeach; ?>
             </div>
             <div class="col-4">
-                <div class="row">
+                <div class="row perfil">
                     <div class="col-12 d-flex justify-content-center">
                         <h1><?= $model['log_us'] ?></h1>
                     </div>
                     <div class="col-12">
                         <hr>
                     </div>
-                    <div class="col-3 d-flex justify-content-center">
+                    <div class="col-6 d-flex justify-content-center">
                         <h6>Seguidores</h6>
                     </div>
-                    <div class="col-3 d-flex justify-content-center">
-                        <h6><?= $num_segr ?></h6>
-                    </div>
-                    <div class="col-3 d-flex justify-content-center">
+                    <div class="col-6 d-flex justify-content-center">
                         <h6>Seguidos</h6>
                     </div>
-                    <div class="col-3 d-flex justify-content-center">
+                    <div class="col-6 d-flex justify-content-center">
+                        <h6><?= $num_segr ?></h6>
+                    </div>
+                    <div class="col-6 d-flex justify-content-center">
                         <h6><?= $num_sego ?></h6>
                     </div>
                     <div class="col-12">
@@ -95,7 +100,7 @@ $request = Yii::$app->request;
                         <?php if ($r['texto'] == 'Seguir') : ?>
                             <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
                         <?php else : ?>
-                            <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success', 'id' => 'unfollow']) ?>
                         <?php endif; ?>
                     </div>
                 </div>

@@ -95,10 +95,6 @@ a.desc:after {
     background-color: transparent;
 }
 
-div h3 {
-    color: #c55;
-}
-
 textarea {
     resize: none;
 }
@@ -132,4 +128,14 @@ body {
 a {
     text-decoration: none;
     color: black;
+}
+
+#unfollow:hover {
+    background-color: #B91D30;
+}
+
+.perfil {
+    border: solid white;
+    border-width: thin;
+    padding: 5%;
 }
