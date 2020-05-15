@@ -118,6 +118,7 @@ body {
 }
 
 .card-body {
+    background-color: #f5f5f5;
     border-color: white;
 }
 

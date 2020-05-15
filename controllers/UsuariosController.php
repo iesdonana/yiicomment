@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Comentarios;
+use app\models\Megustas;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use Yii;
@@ -74,6 +75,7 @@ class UsuariosController extends Controller
 
         $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
         $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
+        
 
         $num_segr = count($seguidores);
         $num_sego = count($seguidos);
@@ -82,6 +84,8 @@ class UsuariosController extends Controller
 
         if ($seguir) {
             $r['texto'] = 'Dejar de Seguir';
+        } elseif ($id == Yii::$app->user->id) {
+            $r['texto'] = 'Editar';
         } else {
             $r['texto'] = 'Seguir';
         }

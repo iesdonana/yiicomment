@@ -6,9 +6,9 @@ use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 use app\models\Megustas;
 
-$titulo = Usuarios::findOne(Yii::$app->user->id);
+$model = Usuarios::findOne(Yii::$app->user->id);
 
-$this->title = 'Bienvenido ' . $titulo['log_us'];
+$this->title = 'Bienvenido ' . $model['log_us'];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -37,6 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         $id = $comentario['usuario_id'];
                         $log = Usuarios::findOne(['id' => $id]);
                         $url1 = Url::to(['comentarios/view', 'id' => $comentario['id']]);
+                        $likeCount = Megustas::find()->where(['comentario_id' => $comentario['id']])->all();
+                        $likeNum = count($likeCount);
                         $megusta = Megustas::find()->where(['usuario_id' => $id, 'comentario_id' => $comentario['id']])->one();
 
                     if (isset($megusta)) {
@@ -54,27 +56,37 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <a href="<?= $url1 ?>">
                                     <div class="card-body">
                                         <blockquote class="blockquote mb-0">
-                                            <p class="text-light"><?= $comentario['text'] ?></p>
+                                            <p class=""><?= $comentario['text'] ?></p>
                                         </blockquote>
                                     </div>
                                 </a>
                                 <div class="card-footer">
-                                    <a href="<?= $url2 ?>">
                                     <div class="row">
                                         <div class="col-4 d-flex justify-content-center">
-                                            <a href="<?= $url2 ?>">
-                                                <?php if (isset($megusta)) : ?>
-                                                    <img src="like.png" alt="like">
-                                                <?php else : ?>
-                                                    <img src="dislike.svg" alt="dislike">
-                                                <?php endif; ?>
-                                            </a>
+                                            <div class="row">
+                                                <div class="col-2 d-flex justify-content-center">
+                                                    <a href="<?= $url2 ?>">
+                                                        <?php if (isset($megusta)) : ?>
+                                                            <img src="like.png" alt="like">
+                                                        <?php else : ?>
+                                                            <img src="dislike.svg" alt="dislike">
+                                                        <?php endif; ?>
+                                                    </a>
+                                                </div>
+                                                <div class="col-2 d-flex justify-content-center">
+                                                    <a href="">
+                                                        <p class="text-light"><?= $likeNum ?></p>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4 d-flex justify-content-center">
 
                                         </div>
                                         <div class="col-4">
-
+                                            <?php if ($comentario['usuario_id'] == Yii::$app->user->id) : ?>
+                                                <img src="trashcan.svg" alt="borrar">
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     </a>

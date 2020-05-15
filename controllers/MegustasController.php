@@ -70,7 +70,7 @@ class MegustasController extends Controller
         $model->save();
 
         Yii::$app->session->setFlash('success', 'Se ha publicado tu Like');
-        return $this->redirect('site/index');
+        return $this->goHome();
     }
 
     /**
@@ -111,7 +111,7 @@ class MegustasController extends Controller
 
         if ($model) {
             $model->delete();
-            return $this->redirect(['site/index'])->send();
+            return $this->goHome();
         } else {
             return Yii::$app->session->setFlash('success', 'Ha ocurrido un error.');
         }
