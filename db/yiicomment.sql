@@ -1,6 +1,7 @@
 ------------------------------
 -- Archivo de base de datos --
 ------------------------------
+CREATE EXTENSION pgcrypto;
 
 DROP TABLE IF EXISTS usuarios CASCADE;
 
@@ -14,7 +15,8 @@ CREATE TABLE usuarios
     ,   password    varchar(255)    NOT NULL
     ,   rol         varchar(255)    NOT NULL
     ,   auth_key    varchar(255)
-    ,   url_img     varchar(2048)   
+    ,   url_img     varchar(2048)
+    ,   bio         varchar(280)   
     ,   img_name    varchar(255)
 );
 

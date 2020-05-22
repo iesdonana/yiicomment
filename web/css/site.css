@@ -104,12 +104,12 @@ textarea {
 }
 
 body {
-    background-color: #15202B;
+    background-color: rgb(26, 47, 68);
     color: #C2C4C7; 
 }
 
 .card {
-    background-color: #15202B;
+    background-color: rgb(26, 47, 68);
     border-color: white;
 }
 
@@ -120,6 +120,7 @@ body {
 .card-body {
     background-color: #f5f5f5;
     border-color: white;
+    flex: none;
 }
 
 .card-footer {
@@ -131,12 +132,22 @@ a {
     color: black;
 }
 
+#d {
+    background-color: rgb(26, 47, 68);
+    border: solid white;
+    border-width: thin;
+    border-radius: 0.25em;
+}
+
 #unfollow:hover {
     background-color: #B91D30;
 }
 
-.perfil {
-    border: solid white;
-    border-width: thin;
-    padding: 5%;
+#eliminar {
+    margin-left: 50%;
 }
+
+#actions {
+    margin-top: 2%;
+}
+

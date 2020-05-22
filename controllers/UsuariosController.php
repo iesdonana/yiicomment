@@ -68,10 +68,7 @@ class UsuariosController extends Controller
             'seguido_id' => $id
         ])->one();
 
-        $ids = $model->getSeguidos()->select('id')->column();
-        array_push($ids, $id);
-
-        $comentarios = Comentarios::find()->where(['IN', 'usuario_id', $ids])->orderBy(['created_at' => SORT_DESC])->all();
+        $comentarios = Comentarios::find()->where(['IN', 'usuario_id', $id])->orderBy(['created_at' => SORT_DESC])->all();
 
         $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
         $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();

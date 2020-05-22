@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                         <div class="col-4">
                                             <?php if ($comentario['usuario_id'] == Yii::$app->user->id) : ?>
-                                                <img src="trashcan.svg" alt="borrar">
+                                                <img src="trashcan.png" alt="borrar" id="eliminar">
                                             <?php endif; ?>
                                         </div>
                                     </div>

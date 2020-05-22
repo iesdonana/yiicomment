@@ -5,11 +5,10 @@ namespace app\controllers;
 use Yii;
 use app\models\Comentarios;
 use app\models\ComentariosSearch;
-use Psy\VarDumper\Dumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\VarDumper;
+use app\models\Seguidores;
 
 /**
  * ComentariosController implements the CRUD actions for Comentarios model.
@@ -54,8 +53,34 @@ class ComentariosController extends Controller
      */
     public function actionView($id)
     {
+        $seguir = Seguidores::find()
+        ->andWhere([
+            'seguidor_id' => Yii::$app->user->id,
+            'seguido_id' => $id
+        ])->one();
+        
+        $r =[];
+
+        if ($seguir) {
+            $r['texto'] = 'Dejar de Seguir';
+        } elseif ($id == Yii::$app->user->id) {
+            $r['texto'] = 'Editar';
+        } else {
+            $r['texto'] = 'Seguir';
+        }
+
+        $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
+        $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
+        
+        $num_segr = count($seguidores);
+        $num_sego = count($seguidos);
+
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'r' => $r,
+            'num_segr' => $num_segr,
+            'num_sego' => $num_sego,
         ]);
     }
 

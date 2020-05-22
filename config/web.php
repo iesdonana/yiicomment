@@ -62,6 +62,16 @@ $config = [
         ],
         */
     ],
+    'modules' => [
+        'gridview' =>  [
+             'class' => '\kartik\grid\Module',
+             // your other grid module settings
+         ],
+        'gridviewKrajee' =>  [
+             'class' => '\kartik\grid\Module',
+             // your other grid module settings
+         ]
+    ],
     'container' => [
         'definitions' => [
             'yii\grid\ActionColumn' => ['header' => 'Acciones'],

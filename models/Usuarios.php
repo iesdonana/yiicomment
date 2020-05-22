@@ -55,6 +55,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
             [['password_repeat'], 'compare', 'compareAttribute' => 'password'],
             [['url_img'], 'string', 'max' => 2048],
+            [['bio'], 'string', 'max' => 280],
             [['email'], 'unique'],
             [['log_us'], 'unique'],
         ];
@@ -76,6 +77,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             'rol' => 'Rol',
             'auth_key' => 'Auth Key',
             'url_img' => 'Url Img',
+            'bio' => 'Biografia',
             'img_name' => 'Img Name',
         ];
     }

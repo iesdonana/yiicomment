@@ -29,5 +29,6 @@ class AppAsset extends AssetBundle
         'yii\bootstrap4\BootstrapAsset',
         'yii\bootstrap4\BootstrapPluginAsset',
         'xtetis\bootstrap4glyphicons\assets\GlyphiconAsset',
+        'yii\jui\JuiAsset',
     ];
 }
