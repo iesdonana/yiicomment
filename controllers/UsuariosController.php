@@ -97,4 +97,26 @@ class UsuariosController extends Controller
             'comentarios' => $comentarios,
         ]);
     }
+
+    public function actionUpdate()
+    {
+        $model = Usuarios::findOne(['id' => Yii::$app->user->id]);
+
+        $seguidores = Seguidores::find()->where(['seguido_id' => Yii::$app->user->id])->all();
+        $seguidos = Seguidores::find()->where(['seguidor_id' => Yii::$app->user->id])->all();
+
+        $num_segr = count($seguidores);
+        $num_sego = count($seguidos);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se ha modificado tu biografia.');
+            return $this->redirect(['usuarios/view', 'id' => $model['id']]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+            'num_segr' => $num_segr,
+            'num_sego' => $num_sego,
+        ]);
+    }
 }

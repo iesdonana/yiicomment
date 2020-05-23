@@ -114,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php elseif ($r['texto'] == 'Dejar de seguir') : ?>
                     <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light', 'id' => 'unfollow']) ?>
                 <?php else : ?>
-                    <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light']) ?>
+                    <?= Html::a($r['texto'], ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
                 <?php endif; ?>
             </div>
             <div class="col-12">
@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <br>
             </div>
             <div class="col-12">
-                <p class="text-light"><?= $user['bio'] = 'dgsdgsdgsdggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg' ?></p>
+                <p class="text-light"><?= $model['bio'] ?></p>
             </div>
         </div>
     </div>
