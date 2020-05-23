@@ -77,47 +77,52 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <div class="col-12">
-                <hr>
+                <p> </p>
+                <br>
+                <p> </p>
             </div>
         <?php endforeach; ?>
     </div>
     <div class="col-4 card" style="border: none">
         <div class="row card-body" id="d">
             <div class="col-12 d-flex justify-content-center">
-                <h1><?= $model['log_us'] ?></h1>
+                <h1 class="text-light"><?= $model['log_us'] ?></h1>
             </div>
             <div class="col-12">
-                <hr>
+                <br>
+                <br>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6>Seguidores</h6>
+                <h6 class="text-light">Seguidores</h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6>Seguidos</h6>
+                <h6 class="text-light">Seguidos</h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6><?= $num_segr ?></h6>
+                <h6 class="text-light"><?= $num_segr ?></h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6><?= $num_sego ?></h6>
+                <h6 class="text-light"><?= $num_sego ?></h6>
             </div>
             <div class="col-12">
-                <hr>
+                <br>
+                <br>
             </div>
             <div class="col-12 d-flex justify-content-center">
                 <?php if ($r['texto'] == 'Seguir') : ?>
-                    <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
+                    <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light']) ?>
                 <?php elseif ($r['texto'] == 'Dejar de seguir') : ?>
-                    <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success', 'id' => 'unfollow']) ?>
+                    <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light', 'id' => 'unfollow']) ?>
                 <?php else : ?>
-                    <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success']) ?>
+                    <?= Html::a($r['texto'], ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
                 <?php endif; ?>
             </div>
             <div class="col-12">
-                <hr>
+                <br>
+                <br>
             </div>
             <div class="col-12">
-                <p><?= $user['bio'] = 'dgsdgsdgsdggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg' ?></p>
+                <p class="text-light"><?= $model['bio'] ?></p>
             </div>
         </div>
     </div>

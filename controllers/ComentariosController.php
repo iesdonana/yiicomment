@@ -53,17 +53,20 @@ class ComentariosController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
         $seguir = Seguidores::find()
+
         ->andWhere([
             'seguidor_id' => Yii::$app->user->id,
             'seguido_id' => $id
         ])->one();
-        
+
         $r =[];
 
         if ($seguir) {
             $r['texto'] = 'Dejar de Seguir';
-        } elseif ($id == Yii::$app->user->id) {
+        } elseif ($model['usuario_id'] == Yii::$app->user->id) {
             $r['texto'] = 'Editar';
         } else {
             $r['texto'] = 'Seguir';
@@ -77,7 +80,7 @@ class ComentariosController extends Controller
 
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'r' => $r,
             'num_segr' => $num_segr,
             'num_sego' => $num_sego,

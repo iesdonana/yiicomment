@@ -74,7 +74,8 @@ $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
                 <h1><?= $user['log_us'] ?></h1>
             </div>
             <div class="col-12">
-                <hr>
+                <br>
+                <br>
             </div>
             <div class="col-6 d-flex justify-content-center">
                 <h6>Seguidores</h6>
@@ -89,7 +90,8 @@ $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
                 <h6><?= $num_sego ?></h6>
             </div>
             <div class="col-12">
-                <hr>
+                <br>
+                <br>
             </div>
             <div class="col-12 d-flex justify-content-center">
                 <?php if ($r['texto'] == 'Seguir') : ?>
@@ -97,14 +99,15 @@ $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
                 <?php elseif ($r['texto'] == 'Dejar de seguir') : ?>
                     <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $user['id']], ['class' => 'btn btn-success', 'id' => 'unfollow']) ?>
                 <?php else : ?>
-                    <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $user['id']], ['class' => 'btn btn-success']) ?>
+                    <?= Html::a($r['texto'], ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
                 <?php endif; ?>
             </div>
             <div class="col-12">
-                <hr>
+                <br>
+                <br>
             </div>
             <div class="col-12">
-                <p><?= $user['bio'] = 'dgsdgsdgsdggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg' ?></p>
+                <p><?= $user['bio'] ?></p>
             </div>
         </div>
     </div>
