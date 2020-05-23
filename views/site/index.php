@@ -95,7 +95,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                     <div class="col-12">
-                        <hr>
+                        <p> </p>
+                        <br>
+                        <p> </p>
                     </div> 
                 <?php endforeach; ?>
             </div>
