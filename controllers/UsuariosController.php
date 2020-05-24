@@ -18,14 +18,13 @@ class UsuariosController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['registrar'],
+                'only' => ['view', 'update'],
                 'rules' => [
-                    // allow authenticated users
                     [
+                        'actions' => ['view', 'update'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['@'],
                     ],
-                    // everything else is denied by default
                 ],
             ],
         ];
@@ -42,19 +41,6 @@ class UsuariosController extends Controller
 
         return $this->render('registrar', [
             'model' => $model,
-        ]);
-    }
-
-    public function actionIndex()
-    {
-        $model = Usuarios::findOne(['id' => Yii::$app->user->id]);
-
-        $ids = $model->getSeguidos()->select('id')->column();
-
-        $comentarios = Comentarios::find('comentario c')->where(['IN', 'usuario_id', $ids])->all();
-
-        return $this->render('index', [
-            'comentarios' => $comentarios
         ]);
     }
 
