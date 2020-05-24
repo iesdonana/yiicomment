@@ -74,8 +74,7 @@ $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
                 <h1><?= $user['log_us'] ?></h1>
             </div>
             <div class="col-12">
-                <br>
-                <br>
+                <hr>
             </div>
             <div class="col-6 d-flex justify-content-center">
                 <h6>Seguidores</h6>
@@ -90,8 +89,7 @@ $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
                 <h6><?= $num_sego ?></h6>
             </div>
             <div class="col-12">
-                <br>
-                <br>
+                <hr>
             </div>
             <div class="col-12 d-flex justify-content-center">
                 <?php if ($r['texto'] == 'Seguir') : ?>
@@ -104,11 +102,22 @@ $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
             </div>
             <div class="col-12">
                 <br>
-                <br>
+            </div>
+            <div class="col-12">
+                <p class="text-light">Biografia.</p>
             </div>
             <div class="col-12">
                 <p><?= $user['bio'] ?></p>
             </div>
+            <div class="col-12">
+                <br>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+                <img src="placeholder.svg" id="location">
+            </div>
+            <div class="col-10">
+                <p><?= $user['ubi'] ?></p>
+            </div>  
         </div>
     </div>
 </div>

@@ -85,7 +85,7 @@ class SiteController extends Controller
 
         if ($publicar->load(Yii::$app->request->post()) && $publicar->save()) {
             Yii::$app->session->setFlash('success', 'Se ha publicado tu comentario.');
-            return $this->redirect('site/index');
+            return $this->redirect('index');
         }
 
         return $this->render('index', [

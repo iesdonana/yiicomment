@@ -45,10 +45,10 @@ $this->params['breadcrumbs'][] = 'Update';
                 </div>
             </div>
             <div class="col-12">
-                <hr>
+                <?= $form->field($model, 'bio')->textarea(['maxlength' => true, 'value' => $model['bio']]) ?>
             </div>
             <div class="col-12">
-                <?= $form->field($model, 'bio')->textarea(['maxlength' => true, 'value' => $model['bio']]) ?>
+                <?= $form->field($model, 'ubi')->input(['maxlength' => true, 'value' => $model['ubi']]) ?>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
