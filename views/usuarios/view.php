@@ -1,17 +1,41 @@
 <?php
 
 use app\models\Megustas;
+use app\models\Seguidores;
 use Symfony\Component\VarDumper\VarDumper;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 use app\models\Usuarios;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Usuarios */
-
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = $this->title;
+
+
+$url = Url::to(['seguidores/follow']);
+$js = <<<EOT
+var boton = $("#siguiendo");
+boton.click(function(event) {
+    event.preventDefault();
+    $.ajax({
+        method: 'GET',
+        url: '$url',
+        data: {
+            'seguido_id': $seguido_id
+        },
+        success: function (data, code, jqXHR) {
+            var texto= data[0]?"Dejar de seguir":"Seguir"
+            boton.toggle("slide",1000);
+            setTimeout( ()=> {
+                boton.html(texto);
+            }, 1000);
+            boton.toggle("slide",1000);
+
+    }
+    });
+});
+EOT;
+$this->registerJs($js);
 ?>
 <div class="row">
     <div class="col-8">
@@ -107,7 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <hr>
             </div>
             <div class="col-12 d-flex justify-content-center">
-                <?= Html::a('texto', ['seguidores/follow', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light']) ?>
+                <?= Html::a(Seguidores::siguiendo($seguido_id) ? 'Dejar de seguir' : 'Seguir', ['seguidores/follow', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
             </div>
             <div class="col-12">
                 <br>

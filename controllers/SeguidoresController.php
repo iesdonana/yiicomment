@@ -4,11 +4,10 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Seguidores;
-use app\models\SeguidoresSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\VarDumper;
+use yii\web\Response;
 
 /**
  * SeguidoresController implements the CRUD actions for Seguidores model.
@@ -36,24 +35,19 @@ class SeguidoresController extends Controller
 
         if ($model) {
             $model->delete();
-            Yii::$app->session->setFlash('success', 'Se ha dejado de seguir.');
-            return $this->redirect(['usuarios/view', 'id' => $seguido_id])->send();
         } else {
-            if ($model['seguido_id'] == $model['seguidor_id']) {
-                Yii::$app->session->setFlash('error', 'Ha ocurrido un error, uno no se puede seguir a si mismo.');
-                return $this->redirect(['usuarios/view', 'id' => $seguido_id])->send();
-            }        if ($model['seguido_id'] == $model['seguidor_id']) {
-                Yii::$app->session->setFlash('error', 'Ha ocurrido un error, uno no se puede seguir a si mismo.');
-                return $this->redirect(['usuarios/view', 'id' => $seguido_id])->send();
-            }
             $seguido = new Seguidores([
                 'seguido_id' => $seguido_id,
                 'seguidor_id' => Yii::$app->user->id
             ]);
+            if ($seguido['seguido_id'] == $seguido['seguidor_id']) {
+                Yii::$app->session->setFlash('danger', 'Uno no se puede seguir a si mismo.');
+                return $this->redirect(['usuarios/view', 'id' => $seguido_id])->send();
+            }
             $seguido->save();
-            Yii::$app->session->setFlash('success', 'Se ha seguido.');
-            return $this->redirect(['usuarios/view', 'id' => $seguido_id])->send();
         }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return array_merge([Seguidores::siguiendo($seguido_id)]);
     }
 
     /**
@@ -92,5 +86,15 @@ class SeguidoresController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function siguiendo($seguido_id)
+    {
+        $seguido = Seguidores::find()->where([
+            'seguidor_id' => Yii::$app->user->id,
+            'seguido_id' => $seguido_id
+        ])->one();
+
+        return $seguido->exists();
     }
 }

@@ -68,4 +68,20 @@ class Seguidores extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'seguido_id']);
     }
+
+    public static function siguiendo($seguido_id)
+    {
+        $seguido = Seguidores::find()->where([
+            'seguidor_id' => Yii::$app->user->id,
+            'seguido_id' => $seguido_id
+        ])->one();
+
+        if ($seguido) {
+            $var = true;
+        } else {
+            $var = false;
+        }
+        
+        return $var;
+    }
 }
