@@ -75,13 +75,7 @@ class Seguidores extends \yii\db\ActiveRecord
             'seguidor_id' => Yii::$app->user->id,
             'seguido_id' => $seguido_id
         ])->one();
-
-        if ($seguido) {
-            $var = true;
-        } else {
-            $var = false;
-        }
         
-        return $var;
+        return isset($seguido);
     }
 }

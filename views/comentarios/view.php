@@ -4,10 +4,36 @@ use app\models\Usuarios;
 use yii\bootstrap4\Html;
 use app\models\Megustas;
 use yii\helpers\Url;
+use app\models\Seguidores;
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = $this->title;
 $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
+$url = Url::to(['seguidores/follow']);
+$js = <<<EOT
+var boton = $("#siguiendo");
+boton.click(function(event) {
+    event.preventDefault();
+    $.ajax({
+        method: 'GET',
+        url: '$url',
+        data: {
+            'seguido_id': $model->usuario_id
+        },
+        success: function (data, code, jqXHR) {
+            var texto= data[0]?"Dejar de seguir":"Seguir"
+            boton.toggle("slide",1000);
+            setTimeout( ()=> {
+                boton.html(texto);
+            }, 1000);
+            boton.toggle("slide",1000);
+            var seguidores = document.getElementById('seguidores')
+            seguidores.innerHTML = data[1]
+    }
+    });
+});
+EOT;
+$this->registerJs($js);
 ?>
 <div class="row">
     <div class="col-8">
@@ -83,7 +109,7 @@ $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
                 <h6>Seguidos</h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6><?= $num_segr ?></h6>
+                <h6 id="seguidores"><?= $num_segr ?></h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
                 <h6><?= $num_sego ?></h6>
@@ -92,12 +118,10 @@ $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
                 <hr>
             </div>
             <div class="col-12 d-flex justify-content-center">
-                <?php if ($r['texto'] == 'Seguir') : ?>
-                    <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $user['id']], ['class' => 'btn btn-success']) ?>
-                <?php elseif ($r['texto'] == 'Dejar de seguir') : ?>
-                    <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $user['id']], ['class' => 'btn btn-success', 'id' => 'unfollow']) ?>
+                <?php if ($model['usuario_id'] == Yii::$app->user->id) : ?>
+                    <?= Html::a('Editar', ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
                 <?php else : ?>
-                    <?= Html::a($r['texto'], ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
+                    <?= Html::a(Seguidores::siguiendo($model->usuario_id) ? 'Dejar de seguir' : 'Seguir', ['seguidores/follow', 'seguido_id' => $model->usuario_id], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
                 <?php endif; ?>
             </div>
             <div class="col-12">

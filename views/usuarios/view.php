@@ -30,7 +30,8 @@ boton.click(function(event) {
                 boton.html(texto);
             }, 1000);
             boton.toggle("slide",1000);
-
+            var seguidores = document.getElementById('seguidores')
+            seguidores.innerHTML = data[1]
     }
     });
 });
@@ -122,7 +123,7 @@ $this->registerJs($js);
                 <h6 class="text-light">Seguidos</h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6 class="text-light"><?= $num_segr ?></h6>
+                <h6 class="text-light" id="seguidores"><?= $num_segr ?></h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
                 <h6 class="text-light"><?= $num_sego ?></h6>
@@ -131,7 +132,11 @@ $this->registerJs($js);
                 <hr>
             </div>
             <div class="col-12 d-flex justify-content-center">
-                <?= Html::a(Seguidores::siguiendo($seguido_id) ? 'Dejar de seguir' : 'Seguir', ['seguidores/follow', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
+                <?php if ($seguido_id == Yii::$app->user->id) : ?>
+                    <?= Html::a('Editar', ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
+                <?php else : ?>
+                    <?= Html::a(Seguidores::siguiendo($seguido_id) ? 'Dejar de seguir' : 'Seguir', ['seguidores/follow', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
+                <?php endif; ?>
             </div>
             <div class="col-12">
                 <br>

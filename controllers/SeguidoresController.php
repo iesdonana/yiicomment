@@ -47,7 +47,7 @@ class SeguidoresController extends Controller
             $seguido->save();
         }
         Yii::$app->response->format = Response::FORMAT_JSON;
-        return array_merge([Seguidores::siguiendo($seguido_id)]);
+        return array_merge([Seguidores::siguiendo($seguido_id)], [Seguidores::find()->where(['seguido_id' => $seguido_id])->count()]);
     }
 
     /**

@@ -48,35 +48,16 @@ class UsuariosController extends Controller
     {
         $model = Usuarios::findOne(['id' => $id]);
 
-        $seguir = Seguidores::find()
-        ->andWhere([
-            'seguidor_id' => Yii::$app->user->id,
-            'seguido_id' => $id
-        ])->one();
-
         $comentarios = Comentarios::find()->where(['IN', 'usuario_id', $id])->orderBy(['created_at' => SORT_DESC])->all();
 
         $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
         $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
-        
 
         $num_segr = count($seguidores);
         $num_sego = count($seguidos);
 
-        $r =[];
-
-        if ($seguir) {
-            $r['texto'] = 'Dejar de Seguir';
-        } elseif ($id == Yii::$app->user->id) {
-            $r['texto'] = 'Editar';
-        } else {
-            $r['texto'] = 'Seguir';
-        }
-    
-
         return $this->render('view', [
             'model' => $model,
-            'r' => $r,
             'seguido_id' => $id,
             'num_segr' => $num_segr,
             'num_sego' => $num_sego,
