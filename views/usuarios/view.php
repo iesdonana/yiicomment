@@ -104,16 +104,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h6 class="text-light"><?= $num_sego ?></h6>
             </div>
             <div class="col-12">
-               <hr>
+                <hr>
             </div>
             <div class="col-12 d-flex justify-content-center">
-                <?php if ($r['texto'] == 'Seguir') : ?>
-                    <?= Html::a($r['texto'], ['seguidores/create', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light']) ?>
-                <?php elseif ($r['texto'] == 'Dejar de seguir') : ?>
-                    <?= Html::a($r['texto'], ['seguidores/delete', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light', 'id' => 'unfollow']) ?>
-                <?php else : ?>
-                    <?= Html::a($r['texto'], ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
-                <?php endif; ?>
+                <?= Html::a('texto', ['seguidores/follow', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light']) ?>
             </div>
             <div class="col-12">
                 <br>
@@ -132,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="col-10">
                 <p><?= $model['ubi'] ?></p>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
