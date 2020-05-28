@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $id = $comentario['usuario_id'];
                         $log = Usuarios::findOne(['id' => $id]);
                         $url1 = Url::to(['comentarios/view', 'id' => $comentario['id']]);
+                        $url3 = Url::to(['comentarios/delete', 'id' => $comentario['id']]);
                         $likeCount = Megustas::find()->where(['comentario_id' => $comentario['id']])->all();
                         $likeNum = count($likeCount);
                         $megusta = Megustas::find()->where(['usuario_id' => $id, 'comentario_id' => $comentario['id']])->one();
@@ -85,7 +86,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                         <div class="col-4">
                                             <?php if ($comentario['usuario_id'] == Yii::$app->user->id) : ?>
-                                                <img src="trashcan.png" alt="borrar" id="eliminar">
+                                                <a href="<?= $url3 ?>">
+                                                    <img src="trashcan.png" alt="borrar" id="eliminar">
+                                                </a>
                                             <?php endif; ?>
                                         </div>
                                     </div>

@@ -110,21 +110,21 @@ body {
 
 .card {
     background-color: rgb(26, 47, 68);
-    border-color: white;
+    border-color:rgb(92, 97, 105);
 }
 
 .card-header {
-    border-color: white;
+    border-color:rgb(92, 97, 105);
 }
 
 .card-body {
     background-color: #f5f5f5;
-    border-color: white;
+    border-color:rgb(92, 97, 105);
     flex: none;
 }
 
 .card-footer {
-    border-color: white;
+    border-color:rgb(92, 97, 105);
 }
 
 a {

@@ -76,7 +76,7 @@ class UsuariosController extends Controller
         $num_sego = count($seguidos);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Se ha modificado tu biografia.');
+            Yii::$app->session->setFlash('success', 'Se ha modificado tu perfil.');
             return $this->redirect(['usuarios/view', 'id' => $model['id']]);
         }
 
