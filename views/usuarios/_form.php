@@ -22,8 +22,6 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'rol')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'url_img')->textInput(['maxlength' => true]) ?>

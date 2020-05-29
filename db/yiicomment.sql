@@ -13,7 +13,7 @@ CREATE TABLE usuarios
     ,   apellido    varchar(60)     NOT NULL
     ,   email       varchar(255)    NOT NULL UNIQUE
     ,   password    varchar(255)    NOT NULL
-    ,   rol         varchar(255)    NOT NULL
+    ,   rol         varchar(255)    DEFAULT 'user'
     ,   auth_key    varchar(255)
     ,   url_img     varchar(2048)
     ,   bio         varchar(280)
@@ -50,9 +50,9 @@ CREATE TABLE seguidores
 );
 
 INSERT INTO usuarios (log_us, nombre, apellido, email, password, rol, auth_key)
-VALUES  ('esscart', 'david', 'florido', 'david.xipi99@hotmail.com', 'hola', 'admin', crypt('hola', gen_salt('bf', 10))),
-        ('admin', 'pepe', 'garcia', 'admin@hotmail.com', 'hola', 'admin', crypt('hola', gen_salt('bf', 10))),
-        ('mike', 'miguel', 'sierra', 'jose@hotmail.com', 'hola', 'usuario', crypt('hola', gen_salt('bf', 10)));
+VALUES  ('esscart', 'david', 'florido', 'david.xipi99@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'admin', ''),
+        ('admin', 'pepe', 'garcia', 'admin@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'admin', ''),
+        ('mike', 'miguel', 'sierra', 'jose@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', '');
 
 INSERT INTO comentarios (usuario_id, text)
 VALUES  (3, 'este es mi primer comentario'),

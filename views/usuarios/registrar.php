@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'nombre')->textInput() ?>
         <?= $form->field($model, 'apellido')->textInput() ?>
         <?= $form->field($model, 'email')->textInput() ?>
-        <?= $form->field($model, 'rol')->textInput() ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
         <?= $form->field($model, 'password_repeat')->passwordInput() ?>
 
