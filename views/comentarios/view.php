@@ -39,6 +39,7 @@ $this->registerJs($js);
     <div class="col-8">
         <?php
         $url1 = Url::to(['comentarios/view', 'id' => $model['id']]);
+        $url3 = Url::to(['comentarios/delete', 'id' => $model['id']]);
         $likeCount = Megustas::find()->where(['comentario_id' => $model['id']])->all();
         $likeNum = count($likeCount);
         $megusta = Megustas::find()->where(['usuario_id' => $user->id, 'comentario_id' => $model['id']])->one();
@@ -85,7 +86,9 @@ $this->registerJs($js);
                             </div>
                             <div class="col-4" id="actions">
                                 <?php if ($model['usuario_id'] == Yii::$app->user->id) : ?>
-                                    <img src="trashcan.png" alt="borrar" id="eliminar">
+                                    <a href="<?= $url3 ?>">
+                                        <img src="trashcan.png" alt="borrar" id="eliminar">
+                                    </a>
                                 <?php endif; ?>
                             </div>
                         </div>

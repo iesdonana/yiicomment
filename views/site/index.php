@@ -5,6 +5,8 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 use app\models\Megustas;
+use yii\bootstrap4\LinkPager;
+
 
 $model = Usuarios::findOne(Yii::$app->user->id);
 
@@ -43,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $megusta = Megustas::find()->where(['usuario_id' => $id, 'comentario_id' => $comentario['id']])->one();
 
                     if (isset($megusta)) {
-                            $url2 = Url::to(['megustas/delete', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);    
+                            $url2 = Url::to(['megustas/delete', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
                     } else {
                             $url2 = Url::to(['megustas/create', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
                     }
@@ -103,6 +105,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p> </p>
                     </div> 
                 <?php endforeach; ?>
+                <div class="col-12">
+                <?= LinkPager::widget([
+                    'pagination' => $pagination
+                ]);?>
+                </div>
             </div>
             <div class="col-4">
 

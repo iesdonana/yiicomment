@@ -7,6 +7,7 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 use app\models\Usuarios;
+use yii\bootstrap4\LinkPager;
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = $this->title;
@@ -45,6 +46,7 @@ $this->registerJs($js);
             $id = $comentario['usuario_id'];
             $log = Usuarios::findOne(['id' => $id]);
             $url1 = Url::to(['comentarios/view', 'id' => $comentario['id']]);
+            $url3 = Url::to(['comentarios/delete', 'id' => $comentario['id']]);
             $likeCount = Megustas::find()->where(['comentario_id' => $comentario['id']])->all();
             $likeNum = count($likeCount);
             $megusta = Megustas::find()->where(['usuario_id' => $id, 'comentario_id' => $comentario['id']])->one();
@@ -93,7 +95,9 @@ $this->registerJs($js);
                                 </div>
                                 <div class="col-4" id="actions">
                                     <?php if ($comentario['usuario_id'] == Yii::$app->user->id) : ?>
-                                        <img src="trashcan.png" alt="borrar" id="eliminar">
+                                        <a href="<?= $url3 ?>">
+                                            <img src="trashcan.png" alt="borrar" id="eliminar">
+                                        </a>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -107,6 +111,9 @@ $this->registerJs($js);
                 <p> </p>
             </div>
         <?php endforeach; ?>
+        <?= LinkPager::widget([
+            'pagination' => $pagination
+        ]); ?>
     </div>
     <div class="col-4 card" style="border: none">
         <div class="row card-body" id="d">

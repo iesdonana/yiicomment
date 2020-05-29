@@ -9,6 +9,8 @@ use app\models\Usuarios;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\data\Pagination;
+
 
 
 class UsuariosController extends Controller
@@ -48,7 +50,18 @@ class UsuariosController extends Controller
     {
         $model = Usuarios::findOne(['id' => $id]);
 
-        $comentarios = Comentarios::find()->where(['IN', 'usuario_id', $id])->orderBy(['created_at' => SORT_DESC])->all();
+        $query = Comentarios::find()->where(['IN', 'usuario_id', $id])->orderBy(['created_at' => SORT_DESC]);
+
+        $count = $query->count();
+
+        $pagination = new Pagination([
+            'totalCount' => $count,
+            'pageSize' => 5
+        ]);
+
+        $comentarios = $query->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
 
         $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
         $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
@@ -62,6 +75,7 @@ class UsuariosController extends Controller
             'num_segr' => $num_segr,
             'num_sego' => $num_sego,
             'comentarios' => $comentarios,
+            'pagination' => $pagination
         ]);
     }
 

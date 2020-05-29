@@ -11,7 +11,8 @@ use app\models\LoginForm;
 use app\models\Comentarios;
 use app\models\Megustas;
 use app\models\Usuarios;
-use Symfony\Component\VarDumper\VarDumper;
+use yii\data\Pagination;
+
 
 class SiteController extends Controller
 {
@@ -77,9 +78,18 @@ class SiteController extends Controller
         
         array_push($ids, $idActual);
 
-        $comentarios = Comentarios::find()->where(['IN', 'usuario_id', $ids])->orderBy(['created_at' => SORT_DESC])->all();
+        $query = Comentarios::find()->where(['IN', 'usuario_id', $ids])->orderBy(['created_at' => SORT_DESC]);
 
-        $megustas = Megustas::find()->where(['IN', 'usuario_id', $ids])->all();
+        $count = $query->count();
+
+        $pagination = new Pagination([
+            'totalCount' => $count,
+            'pageSize' => 5
+        ]);
+
+        $comentarios = $query->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
 
         $publicar = new Comentarios(['usuario_id' => $idActual]);
 
@@ -90,7 +100,8 @@ class SiteController extends Controller
 
         return $this->render('index', [
             'comentarios' => $comentarios,
-            'publicar' => $publicar
+            'publicar' => $publicar,
+            'pagination' => $pagination
         ]);
     }
 
