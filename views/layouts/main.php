@@ -16,6 +16,7 @@ AppAsset::register($this);
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
+
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,56 +25,59 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <?php $log = Usuarios::findOne(['id' => Yii::$app->user->id]) ?>
-    
-</head>
-<body>
-<?php $this->beginBody() ?>
 
-<div class="wrap">
-<?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-dark bg-dark navbar-expand-md fixed-top',
-        ],
-        'collapseOptions' => [
-            'class' => 'justify-content-end',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Busqueda', 'url' => ['comentarios/index']],
-            [
-                'label'=> Yii::$app->user->isGuest ? 'Usuarios' : $log['log_us'],
-                'items' => [
-                    Yii::$app->user->isGuest ? (
-                        ['label' => 'Login', 'url' => ['/site/login']]
-                    ) : (
-                        Html::beginForm(['/site/logout'], 'post')
-                        . Html::submitButton(
-                            'Logout (' . Yii::$app->user->identity->log_us . ')',
-                            ['class' => 'dropdown-item'],
-                        )
-                        . Html::endForm()
-                        ),
-                    ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
+</head>
+
+<body>
+    <?php $this->beginBody() ?>
+
+    <div class="wrap">
+        <?php
+        NavBar::begin([
+            'brandLabel' => Yii::$app->name,
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar-dark bg-dark navbar-expand-md fixed-top',
+            ],
+            'collapseOptions' => [
+                'class' => 'justify-content-end',
+            ],
+        ]);
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav'],
+            'items' => [
+                ['label' => 'Inicio', 'url' => ['/site/index']],
+                ['label' => 'Busqueda', 'url' => ['comentarios/index']],
+                [
+                    'label' => Yii::$app->user->isGuest ? 'Usuarios' : $log['log_us'],
+                    'items' => [
+                        Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : (Html::beginForm(['/site/logout'], 'post')
+                            . Html::submitButton(
+                                'Logout (' . Yii::$app->user->identity->log_us . ')',
+                                ['class' => 'dropdown-item'],
+                            )
+                            . Html::endForm()),
+                        ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
+                    ],
                 ],
             ],
-        ],
-    ]);
-    NavBar::end();
-    ?>
+        ]);
+        NavBar::end();
+        ?>
 
-    <div class="container" style="padding-left: 0;">
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        <div class="container" style="padding-left: 0;">
+            <?= Alert::widget() ?>
+            <?= $content ?>
+            <?php
+            if (!Yii::$app->getRequest()->getCookies()->getValue('aceptar')) {
+                Yii::$app->session->setFlash('warning', 'Este sitio usa cookies, pulsa en el boton para confirmar que aceptas el uso de cookies ' . Html::a('Aceptar', ['site/cookie'], ['class' => 'btn btn-outline-warning']));
+            }
+            ?>
+        </div>
     </div>
-</div>
 
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 </body>
+
 </html>
 <?php $this->endPage() ?>
