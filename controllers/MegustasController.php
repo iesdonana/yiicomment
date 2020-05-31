@@ -36,9 +36,13 @@ class MegustasController extends Controller
      */
     public function actionView($comentario_id)
     {
-        $usuarios_id = Megustas::find()->where('comentarios_id', $comentario_id)->all();
+        $comentario = Comentarios::findOne(['id' => $comentario_id]);
+        
+        $usuarios = $comentario->getUsuarios();
 
-        return $this->render('view', []);
+        return $this->render('view', [
+            'usuarios' => $usuarios
+        ]);
     }
 
     /**

@@ -47,12 +47,20 @@ $this->params['breadcrumbs'][] = 'Bienvenido ' . $model->log_us;
                             'usuario_id' => Yii::$app->user->id,
                         ])->one();
                         $url2 = Url::to(['megustas/like', 'usuario_id' => Yii::$app->user->id, 'comentario_id' => $comentario['id']]);
+                        $url4 = Url::to(['megustas/view', 'comentario_id' => $comentario['id']]);
                     ?>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
+                                    <div class="row">
+                                        <div class="col-2 d-flex justify-content-center">
+                                            <img src="user.svg" alt="" id="user">
+                                        </div>
+                                        <div class="col-8">
+                                            <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
+                                        </div>
+                                    </div>
                                 </div>
                                 <a href="<?= $url1 ?>">
                                     <div class="card-body">
@@ -75,7 +83,7 @@ $this->params['breadcrumbs'][] = 'Bienvenido ' . $model->log_us;
                                                     </a>
                                                 </div>
                                                 <div class="col-2 d-flex justify-content-center">
-                                                    <a href="">
+                                                    <a href="<?= $url4 ?>">
                                                         <p class="text-light"><?= $likeNum ?></p>
                                                     </a>
                                                 </div>

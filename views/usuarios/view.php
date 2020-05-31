@@ -59,7 +59,14 @@ $this->registerJs($js);
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
+                            <div class="row">
+                                <div class="col-2 d-flex justify-content-center">
+                                    <img src="user.svg" alt="" id="user">
+                                </div>
+                                <div class="col-8">
+                                    <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
+                                </div>
+                            </div>
                         </div>
                         <a href="<?= $url1 ?>">
                             <div class="card-body">
@@ -117,6 +124,9 @@ $this->registerJs($js);
         <div class="row card-body" id="d">
             <div class="col-12 d-flex justify-content-center">
                 <h1 class="text-light"><?= $model['log_us'] ?></h1>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <img src="user.svg" alt="" id="profile">
             </div>
             <div class="col-12">
                 <hr>

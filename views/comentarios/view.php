@@ -52,13 +52,20 @@ $this->registerJs($js);
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <?= Html::a($user['log_us'], ['usuarios/view', 'id' => $user->id], ['class' => 'text-light']) ?>
-                    </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                                <p class="text-dark"><?= $model['text'] ?></p>
-                            </blockquote>
+                        <div class="row">
+                            <div class="col-2 d-flex justify-content-center">
+                                <img src="user.svg" alt="" id="user">
+                            </div>
+                            <div class="col-8">
+                                <?= Html::a($user['log_us'], ['usuarios/view', 'id' => $user->id], ['class' => 'text-light']) ?>
+                            </div>
                         </div>
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p class="text-dark"><?= $model['text'] ?></p>
+                        </blockquote>
+                    </div>
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-4 d-flex justify-content-center" id="actions">
@@ -99,6 +106,9 @@ $this->registerJs($js);
         <div class="row card-body" id="d">
             <div class="col-12 d-flex justify-content-center">
                 <h1><?= $user['log_us'] ?></h1>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <img src="user.svg" alt="" id="profile">
             </div>
             <div class="col-12">
                 <hr>
@@ -142,7 +152,7 @@ $this->registerJs($js);
             </div>
             <div class="col-10">
                 <p><?= $user['ubi'] ?></p>
-            </div>  
+            </div>
         </div>
     </div>
 </div>
