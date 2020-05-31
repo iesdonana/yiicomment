@@ -1,10 +1,13 @@
 ------------------------------
 -- Archivo de base de datos --
 ------------------------------
+
+/* Extension de encriptacion */
 CREATE EXTENSION pgcrypto;
 
 DROP TABLE IF EXISTS usuarios CASCADE;
 
+/* Tabla principal de usuarios, dato de un usuario registrado */
 CREATE TABLE usuarios 
 (
         id          BIGSERIAL       PRIMARY KEY
@@ -23,6 +26,11 @@ CREATE TABLE usuarios
 
 DROP TABLE IF EXISTS comentarios CASCADE;
 
+/* Tabla de comentarios que es lo que se comparte en la plataforma.
+*  Datos que tendra un comentario:
+*  Los comentarios tendrán su propio id, el id del usuario que ha publicado dicho comentario, el contenido de este
+*  y la fecha en la que se ha creado.
+*/
 CREATE TABLE comentarios
 (
         id              BIGSERIAL       PRIMARY KEY
@@ -31,8 +39,19 @@ CREATE TABLE comentarios
     ,   created_at      TIMESTAMP(0)    DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS comfav CASCADE;
+
+/* Tabla donde se guardan los comentarios favorios */
+CREATE TABLE comfav
+(
+        usuario_id      BIGINT      REFERENCES usuarios (id) ON DELETE CASCADE
+    ,   comentario_id   BIGINT      REFERENCES comentarios(id) ON DELETE CASCADE
+    ,   PRIMARY KEY (usuario_id, comentario_id)  
+);
+
 DROP TABLE IF EXISTS megustas CASCADE;
 
+/* En esta tabla se almacena el comentario y el usuario que ha realizado la accion */
 CREATE TABLE megustas
 (
         usuario_id      BIGINT      REFERENCES usuarios (id) ON DELETE CASCADE
@@ -42,10 +61,13 @@ CREATE TABLE megustas
 
 DROP TABLE IF EXISTS seguidores CASCADE;
 
+/* Un usuario puede seguir a otro por medio de un insert en esta tabla, 
+*  cuando un usuario sigue a otro el seguidor podra ver los comentarios del usuario al que ha seguido
+*/
 CREATE TABLE seguidores
 (
-    seguidor_id     BIGINT      REFERENCES usuarios (id)
-  , seguido_id      BIGINT      REFERENCES usuarios (id)
+    seguidor_id     BIGINT      REFERENCES usuarios (id) ON DELETE CASCADE
+  , seguido_id      BIGINT      REFERENCES usuarios (id) ON DELETE CASCADE
   , PRIMARY KEY (seguidor_id, seguido_id)
 );
 
