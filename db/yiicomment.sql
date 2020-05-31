@@ -20,6 +20,7 @@ CREATE TABLE usuarios
     ,   auth_key    varchar(255)
     ,   url_img     varchar(2048)
     ,   bio         varchar(280)
+    ,   token       varchar(32)
     ,   ubi         varchar(50)   
     ,   img_name    varchar(255)
 );

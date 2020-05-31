@@ -3,8 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\Security;
-use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
@@ -59,6 +57,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['ubi'], 'string', 'max' => 50],
             [['email'], 'unique'],
             [['log_us'], 'unique'],
+            [['password'], 'compare', 'on' => self::SCENARIO_CREAR],
         ];
     }
 
@@ -128,6 +127,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             if ($this->scenario === self::SCENARIO_CREAR) {
                 $security = Yii::$app->security;
                 $this->auth_key = $security->generateRandomString();
+                $this->token = $security->generateRandomString(32);
                 $this->password = $security->generatePasswordHash($this->password);
             }
         }
