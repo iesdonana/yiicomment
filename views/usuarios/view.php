@@ -49,13 +49,11 @@ $this->registerJs($js);
             $url3 = Url::to(['comentarios/delete', 'id' => $comentario['id']]);
             $likeCount = Megustas::find()->where(['comentario_id' => $comentario['id']])->all();
             $likeNum = count($likeCount);
-            $megusta = Megustas::find()->where(['usuario_id' => $id, 'comentario_id' => $comentario['id']])->one();
-
-            if (isset($megusta)) {
-                $url2 = Url::to(['megustas/delete', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
-            } else {
-                $url2 = Url::to(['megustas/create', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
-            }
+            $megusta = Megustas::find()->andWhere([
+                'comentario_id' => $comentario->id,
+                'usuario_id' => Yii::$app->user->id,
+            ])->one();
+            $url2 = Url::to(['megustas/like', 'usuario_id' => Yii::$app->user->id, 'comentario_id' => $comentario['id']]);
             ?>
             <div class="row">
                 <div class="col-12">

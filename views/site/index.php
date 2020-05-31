@@ -10,8 +10,8 @@ use yii\bootstrap4\LinkPager;
 
 $model = Usuarios::findOne(Yii::$app->user->id);
 
-$this->title = 'Bienvenido ' . $model['log_us'];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'YiiComment';
+$this->params['breadcrumbs'][] = 'Bienvenido ' . $model->log_us;
 ?>
 
 <div class="row">
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-8">
                 <div class="row">
                     <div class="col-12">
-                        <h1><?= Html::encode($this->title) ?></h1>
+                        <h1><?= Html::encode('Bienvenido ' . $model->log_us) ?></h1>
                     </div>
                     <div class="col-12">
                         <?php $form = ActiveForm::begin(); ?>
@@ -42,13 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         $url3 = Url::to(['comentarios/delete', 'id' => $comentario['id']]);
                         $likeCount = Megustas::find()->where(['comentario_id' => $comentario['id']])->all();
                         $likeNum = count($likeCount);
-                        $megusta = Megustas::find()->where(['usuario_id' => $id, 'comentario_id' => $comentario['id']])->one();
-
-                    if (isset($megusta)) {
-                            $url2 = Url::to(['megustas/delete', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
-                    } else {
-                            $url2 = Url::to(['megustas/create', 'usuario_id' => $id, 'comentario_id' => $comentario['id']]);
-                    }
+                        $megusta = Megustas::find()->andWhere([
+                            'comentario_id' => $comentario->id,
+                            'usuario_id' => Yii::$app->user->id,
+                        ])->one();
+                        $url2 = Url::to(['megustas/like', 'usuario_id' => Yii::$app->user->id, 'comentario_id' => $comentario['id']]);
                     ?>
                     <div class="row">
                         <div class="col">
@@ -59,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <a href="<?= $url1 ?>">
                                     <div class="card-body">
                                         <blockquote class="blockquote mb-0">
-                                            <p class=""><?= $comentario['text'] ?></p>
+                                            <p class=""><?= Html::encode($comentario['text']) ?></p>
                                         </blockquote>
                                     </div>
                                 </a>

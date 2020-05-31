@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Comentarios;
 use Yii;
 use app\models\Megustas;
 use app\models\MegustasSearch;
@@ -27,32 +28,17 @@ class MegustasController extends Controller
     }
 
     /**
-     * Lists all Megustas models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new MegustasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
      * Displays a single Megustas model.
      * @param integer $usuario_id
      * @param integer $comentario_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($usuario_id, $comentario_id)
+    public function actionView($comentario_id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($usuario_id, $comentario_id),
-        ]);
+        $usuarios_id = Megustas::find()->where('comentarios_id', $comentario_id)->all();
+
+        return $this->render('view', []);
     }
 
     /**
@@ -60,49 +46,7 @@ class MegustasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($comentario_id)
-    {
-        $model = new Megustas([
-            'comentario_id' => $comentario_id,
-            'usuario_id' => Yii::$app->user->id
-        ]);
-
-        $model->save();
-
-        Yii::$app->session->setFlash('success', 'Se ha publicado tu Like');
-        return $this->goHome();
-    }
-
-    /**
-     * Updates an existing Megustas model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $usuario_id
-     * @param integer $comentario_id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($usuario_id, $comentario_id)
-    {
-        $model = $this->findModel($usuario_id, $comentario_id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'usuario_id' => $model->usuario_id, 'comentario_id' => $model->comentario_id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Megustas model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $usuario_id
-     * @param integer $comentario_id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($comentario_id)
+    public function actionLike($comentario_id)
     {
         $model = Megustas::find()->andWhere([
             'comentario_id' => $comentario_id,
@@ -111,9 +55,15 @@ class MegustasController extends Controller
 
         if ($model) {
             $model->delete();
-            return $this->goHome();
+            return $this->goBack();
         } else {
-            return Yii::$app->session->setFlash('success', 'Ha ocurrido un error.');
+            $like = new Megustas([
+                'comentario_id' => $comentario_id,
+                'usuario_id' => Yii::$app->user->id,
+            ]);
+            $like->save();
+            Yii::$app->session->setFlash('success', 'Ha ocurrido un error.');
+            return $this->goBack();
         }
     }
 
