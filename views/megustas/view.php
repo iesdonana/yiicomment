@@ -11,13 +11,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-12">
         <h1>Likes</h1>
     </div>
+    <div class="col-12">
+        <hr>
+    </div>
     <?php if ($usuarios == null) :?>
         <div class="col-12 d-flex justify-content-center">
             <h3>Aqui no hay nada que enseñar</h3>
         </div>
     <?php endif; ?>
     <?php foreach ($usuarios as $usuario) : ?>
-        <?php  ?>
+        
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col-md-2 d-flex justify-content-center">

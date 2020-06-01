@@ -129,6 +129,11 @@ body {
 
 a {
     text-decoration: none;
+    color: white;
+}
+
+a > div {
+    text-decoration: none;
     color: black;
 }
 
@@ -164,4 +169,8 @@ a {
 #profile {
     width: 85px;
     height: 85px;
+}
+
+#seguidores {
+    color: white;
 }

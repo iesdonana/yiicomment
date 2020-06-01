@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Seguidores;
+use app\models\Usuarios;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -96,5 +97,18 @@ class SeguidoresController extends Controller
         ])->one();
 
         return $seguido->exists();
+    }
+
+    public function actionSeguidores($usuario_id)
+    {
+        $usuario = Usuarios::findOne(['id' => $usuario_id]);
+        
+        $seguidores = $usuario->getSeguidores0()->select('seguidor_id')->column();
+
+        $usuarios = Usuarios::find()->where(['id' => $seguidores])->all();
+
+        return $this->render('view', [
+            'usuarios' => $usuarios,
+        ]);
     }
 }
