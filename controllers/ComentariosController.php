@@ -50,16 +50,8 @@ class ComentariosController extends Controller
             'seguido_id' => $id
         ])->one();
 
-        $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
-        $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
-        
-        $num_segr = count($seguidores);
-        $num_sego = count($seguidos);
-
         return $this->render('view', [
             'model' => $model,
-            'num_segr' => $num_segr,
-            'num_sego' => $num_sego,
         ]);
     }
 

@@ -34,6 +34,8 @@ boton.click(function(event) {
 });
 EOT;
 $this->registerJs($js);
+$seguidores = Seguidores::find()->where(['seguido_id' => $model['id']])->all();
+$seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
 ?>
 <div class="row">
     <div class="col-8">
@@ -121,10 +123,10 @@ $this->registerJs($js);
                 <h6>Seguidos</h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6 id="seguidores"><?= $num_segr ?></h6>
+                <h6><?= Html::a(count($seguidores), ['seguidores/seguidos', 'usuario_id' => $model['id'], ['id' => 'seguidores']]) ?></h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6><?= $num_sego ?></h6>
+                <h6><?= Html::a(count($seguidos), ['seguidores/seguidos', 'usuario_id' => $model['id'], ['id' => 'seguidores']]) ?></h6>
             </div>
             <div class="col-12">
                 <hr>

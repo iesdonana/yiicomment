@@ -6,8 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Seguidores */
 
-$this->params['breadcrumbs'][] = ['label' => 'Seguidores', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title = 'Seguidores';
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="row">

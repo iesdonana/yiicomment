@@ -107,8 +107,19 @@ class SeguidoresController extends Controller
 
         $usuarios = Usuarios::find()->where(['id' => $seguidores])->all();
 
-        return $this->render('view', [
+        return $this->render('seguidores', [
             'usuarios' => $usuarios,
+        ]);
+    }
+
+    public function actionSeguidos($usuario_id)
+    {
+        $usuarios = Seguidores::find()->where(['seguidor_id' => $usuario_id])->select('seguido_id')->column();
+        
+        $seguidos = Usuarios::find()->where(['id' => $usuarios])->all();
+
+        return $this->render('seguidos', [
+            'usuarios' => $seguidos,
         ]);
     }
 }

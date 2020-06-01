@@ -142,7 +142,7 @@ $this->registerJs($js);
                 <h6><?= Html::a($num_segr, ['seguidores/seguidores', 'usuario_id' => $model['id'], ['id' => 'seguidores']]) ?></h6>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <h6 class="text-light"><?= $num_sego ?></h6>
+                <h6><?= Html::a($num_sego, ['seguidores/seguidos', 'usuario_id' => $model['id'], ['id' => 'seguidores']]) ?></h6>
             </div>
             <div class="col-12">
                 <hr>
