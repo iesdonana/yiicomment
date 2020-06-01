@@ -54,6 +54,7 @@ $this->registerJs($js);
                 'usuario_id' => Yii::$app->user->id,
             ])->one();
             $url2 = Url::to(['megustas/like', 'usuario_id' => Yii::$app->user->id, 'comentario_id' => $comentario['id']]);
+            $url4 = Url::to(['megustas/view', 'comentario_id' => $comentario['id']]);
             ?>
             <div class="row">
                 <div class="col-12">
@@ -89,7 +90,7 @@ $this->registerJs($js);
                                             </a>
                                         </div>
                                         <div class="col-2 d-flex justify-content-center">
-                                            <a href="">
+                                            <a href="<?= $url4 ?>">
                                                 <p class="text-light"><?= $likeNum ?></p>
                                             </a>
                                         </div>

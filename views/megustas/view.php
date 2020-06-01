@@ -3,15 +3,35 @@
 use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Megustas */
-
-$this->params['breadcrumbs'][] = ['label' => 'Megustas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="megustas-view">
-
-    <?= var_dump($usuarios->count()) ?>
-
+<div class="row">
+    <div class="col-12">
+    <div class="col-12">
+        <h1>Likes</h1>
+    </div>
+    <?php if ($usuarios == null) :?>
+        <div class="col-12 d-flex justify-content-center">
+            <h3>Aqui no hay nada que enseñar</h3>
+        </div>
+    <?php endif; ?>
+    <?php foreach ($usuarios as $usuario) : ?>
+        <?php  ?>
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-2 d-flex justify-content-center">
+                    <img src="user.svg" class="card-img" alt="user" style="width: 70px; height: 70px; margin-top: 15%;">
+                </div>
+                <div class="col-md-10">
+                    <div class="card-body">
+                        <h5><?= Html::a($usuario['log_us'], ['usuarios/view', 'id' => $usuario['id']], ['class' => 'card-title text-dark']) ?></h5>
+                        <p class="card-text text-dark"><?= $usuario['bio'] ?></p>
+                        <p class="card-text d-flex justify-content-end"><img src="placeholder.svg" alt="" id="location" style="margin-right: 2%"><small><?= $usuario['ubi'] ?></small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    </div>
 </div>

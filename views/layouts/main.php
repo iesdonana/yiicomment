@@ -48,6 +48,7 @@ AppAsset::register($this);
             'items' => [
                 ['label' => 'Inicio', 'url' => ['/site/index']],
                 ['label' => 'Busqueda', 'url' => ['comentarios/index']],
+                ['label' => 'Perfil', 'url' => ['usuarios/view', 'id' => Yii::$app->user->id]],
                 [
                     'label' => Yii::$app->user->isGuest ? 'Usuarios' : $log['log_us'],
                     'items' => [

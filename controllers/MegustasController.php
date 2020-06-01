@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Comentarios;
 use Yii;
 use app\models\Megustas;
+use app\models\Usuarios;
 use app\models\MegustasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -38,10 +39,14 @@ class MegustasController extends Controller
     {
         $comentario = Comentarios::findOne(['id' => $comentario_id]);
         
-        $usuarios = $comentario->getUsuarios();
+        $usuarios = $comentario->getMegustas()->select('usuario_id')->column();
+
+        $query = Usuarios::find()->where(['id' => $usuarios])->all();
+
 
         return $this->render('view', [
-            'usuarios' => $usuarios
+            'usuarios' => $query,
+
         ]);
     }
 
@@ -66,7 +71,6 @@ class MegustasController extends Controller
                 'usuario_id' => Yii::$app->user->id,
             ]);
             $like->save();
-            Yii::$app->session->setFlash('success', 'Ha ocurrido un error.');
             return $this->goBack();
         }
     }

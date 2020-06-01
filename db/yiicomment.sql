@@ -19,7 +19,7 @@ CREATE TABLE usuarios
     ,   rol         varchar(255)    DEFAULT 'user'
     ,   auth_key    varchar(255)
     ,   url_img     varchar(2048)
-    ,   bio         varchar(280)
+    ,   bio         varchar(280)    DEFAULT 'Hola! Estoy usando yiiComment'
     ,   token       varchar(32)
     ,   ubi         varchar(50)   
     ,   img_name    varchar(255)
