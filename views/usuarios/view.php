@@ -38,6 +38,7 @@ boton.click(function(event) {
 });
 EOT;
 $this->registerJs($js);
+Yii::$app->formatter->locale = 'ES';
 ?>
 <div class="row">
     <div class="col-8">
@@ -66,6 +67,9 @@ $this->registerJs($js);
                                 </div>
                                 <div class="col-8">
                                     <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
+                                </div>
+                                <div class="col-2 d-flex justify-content-center">
+                                    <small><?= Yii::$app->formatter->asDate($comentario['created_at']); ?></small>
                                 </div>
                             </div>
                         </div>

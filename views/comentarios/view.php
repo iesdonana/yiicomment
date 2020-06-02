@@ -34,6 +34,7 @@ boton.click(function(event) {
 });
 EOT;
 $this->registerJs($js);
+Yii::$app->formatter->locale = 'ES';
 $seguidores = Seguidores::find()->where(['seguido_id' => $model['id']])->all();
 $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
 ?>
@@ -61,6 +62,9 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
                             </div>
                             <div class="col-8">
                                 <?= Html::a($user['log_us'], ['usuarios/view', 'id' => $user->id], ['class' => 'text-light']) ?>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <small><?= Yii::$app->formatter->asDate($model['created_at']); ?></small>
                             </div>
                         </div>
                     </div>

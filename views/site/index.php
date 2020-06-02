@@ -12,6 +12,7 @@ $model = Usuarios::findOne(Yii::$app->user->id);
 
 $this->title = 'YiiComment';
 $this->params['breadcrumbs'][] = 'Bienvenido ' . $model->log_us;
+Yii::$app->formatter->locale = 'ES';
 ?>
 
 <div class="row">
@@ -58,7 +59,10 @@ $this->params['breadcrumbs'][] = 'Bienvenido ' . $model->log_us;
                                             <img src="user.svg" alt="" id="user">
                                         </div>
                                         <div class="col-8">
-                                            <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
+                                            <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light log']) ?>
+                                        </div>
+                                        <div class="col-2 d-flex justify-content-center">
+                                            <small><?= Yii::$app->formatter->asDate($comentario['created_at']); ?></small>
                                         </div>
                                     </div>
                                 </div>
