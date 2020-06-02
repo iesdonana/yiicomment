@@ -6,6 +6,7 @@ use app\models\Comentarios;
 use app\models\Megustas;
 use app\models\Seguidores;
 use app\models\Usuarios;
+use app\models\UsuariosSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -22,16 +23,51 @@ class UsuariosController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['view', 'update'],
+                'only' => ['view', 'update', 'index', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['view', 'update'],
+                        'actions' => ['view', 'update', 'index', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
             ],
         ];
+    }
+
+    public function actionIndex()
+    {
+        $id = Yii::$app->user->id;
+        $usuario = Usuarios::findOne(['id' => $id]);
+
+        if ($usuario['log_us'] != 'admin') {
+            Yii::$app->session->setFlash('error', 'Si no eres admin no puedes entrar aqui :( .');
+            return $this->redirect(['site/index']);
+        }
+
+        $searchModel = new UsuariosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionDelete($id)
+    {
+        $user = Yii::$app->user->id;
+        $admin = Usuarios::findOne(['id' => $user]);
+
+        if ($admin['log_us'] != 'admin') {
+            Yii::$app->session->setFlash('error', 'Si no eres admin no puedes entrar aqui :( .');
+            return $this->redirect(['site/index']);
+        }
+
+        $eliminar = Usuarios::findOne(['id' => $id]);
+        $eliminar->delete();
+
+        return $this->redirect(['usuarios/index']);
     }
 
     public function actionRegistrar()

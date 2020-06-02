@@ -10,20 +10,24 @@ use yii\grid\GridView;
 $this->title = 'Usuarios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuarios-index">
+<div class="comfav-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="row">
-        <div class="col-12 col-lg-6 mt-5 order-1 order-lg-0">
-            <?php foreach ($comentarios as $comentario) : ?>
-                <div class="row">
-                    <div class="col">
-                        <p class=""><?= $comentario['text']?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-    </div>
+<?= GridView::widget([
+    'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
+    'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
+
+        'log_us',
+        'nombre',
+        'apellido',
+        'email',
+
+        ['class' => 'yii\grid\ActionColumn'],
+    ],
+]); ?>
 
 
 </div>

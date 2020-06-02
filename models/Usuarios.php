@@ -68,7 +68,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'log_us' => 'Log Us',
+            'log_us' => 'Login Usuario',
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
             'email' => 'Email',
