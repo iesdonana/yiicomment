@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Seguidores;
 use yii\filters\AccessControl;
+use app\models\Usuarios;
+use app\models\UsuariosSearch;
 
 class ComentariosController extends Controller
 {
@@ -74,6 +76,25 @@ class ComentariosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('index.php');
         }
+    }
+
+    public function actionIndex()
+    {
+        $id = Yii::$app->user->id;
+        $usuario = Usuarios::findOne(['id' => $id]);
+
+        if ($usuario['log_us'] != 'admin') {
+            Yii::$app->session->setFlash('error', 'Si no eres admin no puedes entrar aqui :( .');
+            return $this->redirect(['site/index']);
+        }
+
+        $searchModel = new ComentariosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

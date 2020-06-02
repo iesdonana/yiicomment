@@ -144,6 +144,10 @@ a > div {
     border-radius: 0.25em;
 }
 
+td, th{
+    color: white;
+}
+
 #unfollow:hover {
     background-color: #B91D30;
 }
