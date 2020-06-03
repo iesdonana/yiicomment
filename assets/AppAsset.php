@@ -28,7 +28,7 @@ class AppAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap4\BootstrapAsset',
         'yii\bootstrap4\BootstrapPluginAsset',
-        'xtetis\bootstrap4glyphicons\assets\GlyphiconAsset',
+        'rmrevin\yii\fontawesome\CdnFreeAssetBundle',
         'yii\jui\JuiAsset',
     ];
 }
