@@ -2416,50 +2416,6 @@
             "time": "2019-11-27T13:56:44+00:00"
         },
         {
-            "name": "xtetis/yii2-bootstrap4-glyphicons",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://bitbucket.org/xtetis/yii2-bootstrap4-glyphicons.git",
-                "reference": "98fa4a8cdcb1b4cc562c536e407a78085550b33b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://bitbucket.org/xtetis/yii2-bootstrap4-glyphicons/get/98fa4a8cdcb1b4cc562c536e407a78085550b33b.zip",
-                "reference": "98fa4a8cdcb1b4cc562c536e407a78085550b33b",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "~2.0.0"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "xtetis\\bootstrap4glyphicons\\": "src\\"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "xtetis",
-                    "email": "tihonenkovaleriy@gmail.com"
-                }
-            ],
-            "description": "How to use Glyphicons with Bootstrap 4",
-            "homepage": "https://bitbucket.org/xtetis/yii2-bootstrap4-glyphicons",
-            "keywords": [
-                "asset",
-                "bootstrap4",
-                "extension",
-                "glyphicons",
-                "yii2"
-            ],
-            "time": "2019-05-13T16:08:48+00:00"
-        },
-        {
             "name": "yiisoft/yii2",
             "version": "2.0.32",
             "source": {
