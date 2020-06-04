@@ -18,15 +18,18 @@ use yii\web\NotFoundHttpException;
 
 class UsuariosController extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['view', 'update', 'index', 'delete'],
+                'only' => ['view', 'update', 'index', 'delete', 'like'],
                 'rules' => [
                     [
-                        'actions' => ['view', 'update', 'index', 'delete'],
+                        'actions' => ['view', 'update', 'index', 'delete', 'like'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -35,6 +38,11 @@ class UsuariosController extends Controller
         ];
     }
 
+    /**
+     * A este action solo puede entrar el usuario admin, lista los usuarios registrados.
+     *
+     * @return void
+     */
     public function actionIndex()
     {
         $id = Yii::$app->user->id;
@@ -54,6 +62,12 @@ class UsuariosController extends Controller
         ]);
     }
 
+    /**
+     * Permite borrar usuarios.
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function actionDelete($id)
     {
         $user = Yii::$app->user->id;
@@ -70,6 +84,11 @@ class UsuariosController extends Controller
         return $this->redirect(['usuarios/index']);
     }
 
+    /**
+     * Registro de usuarios y envio de correo de confirmacion.
+     *
+     * @return void
+     */
     public function actionRegistrar()
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
@@ -95,6 +114,13 @@ class UsuariosController extends Controller
         ]);
     }
 
+    /**
+     * Envia el email al usuario registrado.
+     *
+     * @param [type] $cuerpo
+     * @param [type] $dest
+     * @return void
+     */
     public function enviarMail($cuerpo, $dest)
     {
         return Yii::$app->mailer->compose()
@@ -105,6 +131,13 @@ class UsuariosController extends Controller
             ->send();
     }
 
+    /**
+     * Activa la cuenta con el enlace del correo.
+     *
+     * @param [type] $id
+     * @param [type] $token
+     * @return void
+     */
     public function actionActivar($id, $token)
     {
         $usuario = $this->findModel($id);
@@ -118,6 +151,12 @@ class UsuariosController extends Controller
         return $this->redirect(['site/index']);
     }
 
+    /**
+     * Lista todos los comentarios del usuario.
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function actionView($id)
     {
         $model = Usuarios::findOne(['id' => $id]);
@@ -132,8 +171,8 @@ class UsuariosController extends Controller
         ]);
 
         $comentarios = $query->offset($pagination->offset)
-                ->limit($pagination->limit)
-                ->all();
+            ->limit($pagination->limit)
+            ->all();
 
         $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
         $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
@@ -151,6 +190,12 @@ class UsuariosController extends Controller
         ]);
     }
 
+    /**
+     * Lista todos los likes del usuario.
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function actionLike($id)
     {
         $model = Usuarios::findOne(['id' => $id]);
@@ -167,8 +212,8 @@ class UsuariosController extends Controller
         ]);
 
         $comentarios = $query->offset($pagination->offset)
-                ->limit($pagination->limit)
-                ->all();
+            ->limit($pagination->limit)
+            ->all();
 
         $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
         $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
@@ -187,6 +232,11 @@ class UsuariosController extends Controller
         ]);
     }
 
+    /**
+     * Actualiza la biografia, localizacion y la foto de perfil del usuario.
+     *
+     * @return void
+     */
     public function actionUpdate()
     {
         $model = Usuarios::findOne(['id' => Yii::$app->user->id]);
@@ -209,6 +259,12 @@ class UsuariosController extends Controller
         ]);
     }
 
+    /**
+     * Encontrar modelo con el id.
+     *
+     * @param [type] $id
+     * @return void
+     */
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {

@@ -11,10 +11,8 @@ use yii\bootstrap4\LinkPager;
 use app\models\comfav;
 
 
-$this->title = $model->id;
+$this->title = 'Comentarios de ' . $model->log_us;
 $this->params['breadcrumbs'][] = $this->title;
-
-
 $url = Url::to(['seguidores/follow']);
 $js = <<<EOT
 var boton = $("#siguiendo");

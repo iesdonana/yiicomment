@@ -7,10 +7,10 @@ use yii\helpers\Url;
 use app\models\Seguidores;
 use app\models\comfav;
 
-$this->title = $model->id;
 $this->params['breadcrumbs'][] = $this->title;
 $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
 $url = Url::to(['seguidores/follow']);
+$this->title = 'Comentario de ' . $user->log_us ;
 $js = <<<EOT
 var boton = $("#siguiendo");
 boton.click(function(event) {
