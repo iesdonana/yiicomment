@@ -1,5 +1,6 @@
 <?php
 
+use app\models\comfav;
 use app\models\Usuarios;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
@@ -48,8 +49,13 @@ $usuarios = Usuarios::find()->where(['IN', 'id', $ids])->all();
                         'comentario_id' => $comentario->id,
                         'usuario_id' => Yii::$app->user->id,
                     ])->one();
+                    $comfav = comfav::find()->andWhere([
+                        'comentario_id' => $comentario->id,
+                        'usuario_id' => Yii::$app->user->id,
+                    ])->one();
                     $url2 = Url::to(['megustas/like', 'usuario_id' => Yii::$app->user->id, 'comentario_id' => $comentario['id']]);
                     $url4 = Url::to(['megustas/view', 'comentario_id' => $comentario['id']]);
+                    $url5 = Url::to(['comfav/comfav', 'comentario_id' => $comentario['id']]);
                     ?>
                     <div class="row">
                         <div class="col-12">
@@ -95,7 +101,13 @@ $usuarios = Usuarios::find()->where(['IN', 'id', $ids])->all();
                                             </div>
                                         </div>
                                         <div class="col-4 d-flex justify-content-center">
-
+                                            <a href="<?= $url5 ?>">
+                                                <?php if (isset($comfav)) : ?>
+                                                    <img src="marcado.svg" id="marcador">
+                                                <?php else : ?>
+                                                    <img src="marcador.svg" id="marcador">
+                                                <?php endif; ?>
+                                            </a>
                                         </div>
                                         <div class="col-4">
                                             <?php if ($comentario['usuario_id'] == Yii::$app->user->id) : ?>

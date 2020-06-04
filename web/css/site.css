@@ -187,10 +187,6 @@ td, th{
     margin-left: 50%;
 }
 
-#actions {
-    margin-top: 2%;
-}
-
 #location {
     width: 15px;
     height: 15px;
@@ -208,4 +204,9 @@ td, th{
 
 #seguidores {
     color: white;
+}
+
+#marcador {
+    width: 15px;
+    height: 15px;
 }

@@ -5,6 +5,7 @@ use yii\bootstrap4\Html;
 use app\models\Megustas;
 use yii\helpers\Url;
 use app\models\Seguidores;
+use app\models\comfav;
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = $this->title;
@@ -49,8 +50,13 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
             'comentario_id' => $model->id,
             'usuario_id' => Yii::$app->user->id,
         ])->one();
+        $comfav = comfav::find()->andWhere([
+            'comentario_id' => $model->id,
+            'usuario_id' => Yii::$app->user->id,
+        ])->one();
         $url2 = Url::to(['megustas/like', 'usuario_id' => Yii::$app->user->id, 'comentario_id' => $model['id']]);
         $url4 = Url::to(['megustas/view', 'comentario_id' => $model['id']]);
+        $url5 = Url::to(['comfav/comfav', 'comentario_id' => $model['id']]);
         ?>
         <div class="row">
             <div class="col-12">
@@ -94,7 +100,13 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
                                 </div>
                             </div>
                             <div class="col-4 d-flex justify-content-center">
-
+                                <a href="<?= $url5 ?>">
+                                    <?php if (isset($comfav)) : ?>
+                                        <img src="marcado.svg" id="marcador">
+                                    <?php else : ?>
+                                        <img src="marcador.svg" id="marcador">
+                                    <?php endif; ?>
+                                </a>
                             </div>
                             <div class="col-4" id="actions">
                                 <?php if ($model['usuario_id'] == Yii::$app->user->id) : ?>

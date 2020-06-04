@@ -58,6 +58,26 @@ class ComfavController extends Controller
         ]);
     }
 
+    public function actionComfav($comentario_id)
+    {
+        $model = comfav::find()->andWhere([
+            'comentario_id' => $comentario_id,
+            'usuario_id' => Yii::$app->user->id,
+        ])->one();
+
+        if ($model) {
+            $model->delete();
+            return $this->goBack();
+        } else {
+            $like = new comfav([
+                'comentario_id' => $comentario_id,
+                'usuario_id' => Yii::$app->user->id,
+            ]);
+            $like->save();
+            return $this->goBack();
+        }
+    }
+
     /**
      * Creates a new comfav model.
      * If creation is successful, the browser will be redirected to the 'view' page.
