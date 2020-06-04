@@ -167,8 +167,20 @@ td, th{
     color: white;
 }
 
-#unfollow:hover {
-    background-color: #B91D30;
+#siguiendo:hover {
+    background-color: rgb(10, 71, 43);
+}
+
+#siguiendo {
+    transition: background 1s;
+}
+
+.navbar-dark .navbar-brand {
+    transition: color 1s;
+}
+
+.navbar-dark .navbar-brand:hover {
+    color: rgb(20, 208, 241);
 }
 
 #eliminar {

@@ -73,9 +73,13 @@ CREATE TABLE seguidores
 );
 
 INSERT INTO usuarios (log_us, nombre, apellido, email, password, rol, auth_key)
-VALUES  ('esscart', 'david', 'florido', 'david.xipi99@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'admin', ''),
-        ('admin', 'pepe', 'garcia', 'admin@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'admin', ''),
-        ('mike', 'miguel', 'sierra', 'jose@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', '');
+VALUES  ('esscart', 'david', 'florido', 'david.xipi99@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
+        ('admin', 'admin', 'admin', 'yiicomment@gmail.com', crypt('admin', gen_salt('bf', 10)), 'admin', ''),
+        ('mike', 'miguel', 'sierra', 'jose@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
+        ('saborido', 'Jose Maria', 'monge', 'saborido@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
+        ('alexvidal', 'alejandro', 'vidal', 'alexvidal@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
+        ('casal', 'cristian', 'casal', 'ccasal@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
+        ('alonso', 'juan', 'alonso', 'alonso@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', '');
 
 INSERT INTO comentarios (usuario_id, text)
 VALUES  (3, 'este es mi primer comentario'),

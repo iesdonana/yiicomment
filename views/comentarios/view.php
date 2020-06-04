@@ -137,7 +137,7 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
             </div>
             <div class="col-12 d-flex justify-content-center">
                 <?php if ($model['usuario_id'] == Yii::$app->user->id) : ?>
-                    <?= Html::a('Editar', ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
+                    <?= Html::a('Editar', ['usuarios/update'], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
                 <?php else : ?>
                     <?= Html::a(Seguidores::siguiendo($model->usuario_id) ? 'Dejar de seguir' : 'Seguir', ['seguidores/follow', 'seguido_id' => $model->usuario_id], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
                 <?php endif; ?>
