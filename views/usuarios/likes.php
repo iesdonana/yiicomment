@@ -43,11 +43,14 @@ Yii::$app->formatter->locale = 'ES';
 <div class="row">
     <div class="col-8">
         <div class="row">
-            <div class="col-6 d-flex justify-content-center">
+            <div class="col-4 d-flex justify-content-center">
                 <h4><?= Html::a('Comentarios', ['usuarios/view', 'id' => $seguido_id]) ?></h4>
             </div>
-            <div class="col-6 d-flex justify-content-center">
+            <div class="col-4 d-flex justify-content-center">
                 <h4><?= Html::a('Likes', ['usuarios/like', 'id' => $seguido_id]) ?></h4>
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <h4><?= Html::a('Favoritos', ['comfav/view', 'id' => $seguido_id]) ?></h4>
             </div>
         </div>
         <div class="col-12">

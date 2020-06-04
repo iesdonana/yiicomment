@@ -8,6 +8,12 @@ use app\models\comfavSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Comentarios;
+use app\models\Seguidores;
+use app\models\Usuarios;
+use yii\data\Pagination;
+
+
 
 /**
  * ComfavController implements the CRUD actions for comfav model.
@@ -51,10 +57,39 @@ class ComfavController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($usuario_id, $comentario_id)
+    public function actionView($id)
     {
+        $model = Usuarios::findOne(['id' => $id]);
+
+        $likes = comfav::find()->where(['usuario_id' => $id])->select('comentario_id')->column();
+
+        $query = Comentarios::find()->where(['id' => $likes])->orderBy(['created_at' => SORT_DESC]);
+
+        $count = $query->count();
+
+        $pagination = new Pagination([
+            'totalCount' => $count,
+            'pageSize' => 5
+        ]);
+
+        $comentarios = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
+        $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
+
+        $num_segr = count($seguidores);
+        $num_sego = count($seguidos);
+
         return $this->render('view', [
-            'model' => $this->findModel($usuario_id, $comentario_id),
+            'model' => $model,
+            'seguido_id' => $id,
+            'num_segr' => $num_segr,
+            'num_sego' => $num_sego,
+            'comentarios' => $comentarios,
+            'pagination' => $pagination,
+            'likes' => $likes
         ]);
     }
 
@@ -76,60 +111,6 @@ class ComfavController extends Controller
             $like->save();
             return $this->goBack();
         }
-    }
-
-    /**
-     * Creates a new comfav model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new comfav();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'usuario_id' => $model->usuario_id, 'comentario_id' => $model->comentario_id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing comfav model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $usuario_id
-     * @param integer $comentario_id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($usuario_id, $comentario_id)
-    {
-        $model = $this->findModel($usuario_id, $comentario_id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'usuario_id' => $model->usuario_id, 'comentario_id' => $model->comentario_id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing comfav model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $usuario_id
-     * @param integer $comentario_id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($usuario_id, $comentario_id)
-    {
-        $this->findModel($usuario_id, $comentario_id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**
