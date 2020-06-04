@@ -13,8 +13,9 @@ $model = Usuarios::findOne(Yii::$app->user->id);
 $this->title = 'YiiComment';
 $this->params['breadcrumbs'][] = 'Bienvenido ' . $model->log_us;
 Yii::$app->formatter->locale = 'ES';
+$ids = [5, 6, 7];
+$usuarios = Usuarios::find()->where(['IN', 'id', $ids])->all();
 ?>
-
 <div class="row">
     <div class="col">
         <div class="row">
@@ -25,30 +26,30 @@ Yii::$app->formatter->locale = 'ES';
                     </div>
                     <div class="col-12">
                         <?php $form = ActiveForm::begin(); ?>
-                            <?= $form->field($publicar, 'text')->textarea(['maxlength' => true, 'placeholder' => 'Publica algo...', ]) ?>
-                            <div class="form-group d-flex justify-content-end">        
-                                <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary']) ?>
-                            </div>
+                        <?= $form->field($publicar, 'text')->textarea(['maxlength' => true, 'placeholder' => 'Publica algo...',]) ?>
+                        <div class="form-group d-flex justify-content-end">
+                            <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary']) ?>
+                        </div>
                         <?php ActiveForm::end(); ?>
                     </div>
                     <div class="col-12">
                         <hr>
-                    </div> 
+                    </div>
                 </div>
                 <?php foreach ($comentarios as $comentario) : ?>
-                    <?php 
-                        $id = $comentario['usuario_id'];
-                        $log = Usuarios::findOne(['id' => $id]);
-                        $url1 = Url::to(['comentarios/view', 'id' => $comentario['id']]);
-                        $url3 = Url::to(['comentarios/delete', 'id' => $comentario['id']]);
-                        $likeCount = Megustas::find()->where(['comentario_id' => $comentario['id']])->all();
-                        $likeNum = count($likeCount);
-                        $megusta = Megustas::find()->andWhere([
-                            'comentario_id' => $comentario->id,
-                            'usuario_id' => Yii::$app->user->id,
-                        ])->one();
-                        $url2 = Url::to(['megustas/like', 'usuario_id' => Yii::$app->user->id, 'comentario_id' => $comentario['id']]);
-                        $url4 = Url::to(['megustas/view', 'comentario_id' => $comentario['id']]);
+                    <?php
+                    $id = $comentario['usuario_id'];
+                    $log = Usuarios::findOne(['id' => $id]);
+                    $url1 = Url::to(['comentarios/view', 'id' => $comentario['id']]);
+                    $url3 = Url::to(['comentarios/delete', 'id' => $comentario['id']]);
+                    $likeCount = Megustas::find()->where(['comentario_id' => $comentario['id']])->all();
+                    $likeNum = count($likeCount);
+                    $megusta = Megustas::find()->andWhere([
+                        'comentario_id' => $comentario->id,
+                        'usuario_id' => Yii::$app->user->id,
+                    ])->one();
+                    $url2 = Url::to(['megustas/like', 'usuario_id' => Yii::$app->user->id, 'comentario_id' => $comentario['id']]);
+                    $url4 = Url::to(['megustas/view', 'comentario_id' => $comentario['id']]);
                     ?>
                     <div class="row">
                         <div class="col-12">
@@ -113,16 +114,34 @@ Yii::$app->formatter->locale = 'ES';
                         <p> </p>
                         <br>
                         <p> </p>
-                    </div> 
+                    </div>
                 <?php endforeach; ?>
                 <div class="col-12">
-                <?= LinkPager::widget([
-                    'pagination' => $pagination
-                ]);?>
+                    <?= LinkPager::widget([
+                        'pagination' => $pagination
+                    ]); ?>
                 </div>
             </div>
             <div class="col-4">
-
+                <div class="row">
+                    <div class="col-12">
+                        <h4>A quien seguir</h4>
+                        <div class="card">
+                            <?php foreach ($usuarios as $usuario) : ?>
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-4 d-flex justify-content-center">
+                                            <img src="user.svg" id="user">
+                                        </div>
+                                        <div class="col-8">
+                                            <?= Html::a($usuario['log_us'], ['usuarios/view', 'id' => $usuario['id']], ['class' => 'text-light']) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
