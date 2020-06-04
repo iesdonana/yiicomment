@@ -151,6 +151,42 @@ class UsuariosController extends Controller
         ]);
     }
 
+    public function actionLike($id)
+    {
+        $model = Usuarios::findOne(['id' => $id]);
+
+        $likes = Megustas::find()->where(['usuario_id' => $id])->select('comentario_id')->column();
+
+        $query = Comentarios::find()->where(['id' => $likes])->orderBy(['created_at' => SORT_DESC]);
+
+        $count = $query->count();
+
+        $pagination = new Pagination([
+            'totalCount' => $count,
+            'pageSize' => 5
+        ]);
+
+        $comentarios = $query->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
+
+        $seguidores = Seguidores::find()->where(['seguido_id' => $id])->all();
+        $seguidos = Seguidores::find()->where(['seguidor_id' => $id])->all();
+
+        $num_segr = count($seguidores);
+        $num_sego = count($seguidos);
+
+        return $this->render('likes', [
+            'model' => $model,
+            'seguido_id' => $id,
+            'num_segr' => $num_segr,
+            'num_sego' => $num_sego,
+            'comentarios' => $comentarios,
+            'pagination' => $pagination,
+            'likes' => $likes
+        ]);
+    }
+
     public function actionUpdate()
     {
         $model = Usuarios::findOne(['id' => Yii::$app->user->id]);
