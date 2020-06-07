@@ -13,6 +13,7 @@ use yii\web\Controller;
 use yii\data\Pagination;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 
 
 
@@ -53,11 +54,11 @@ class UsuariosController extends Controller
             return $this->redirect(['site/index']);
         }
 
-        $searchModel = new UsuariosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $userSearch = new UsuariosSearch();
+        $dataProvider = $userSearch->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'userSearch$userSearch' => $userSearch,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -272,5 +273,26 @@ class UsuariosController extends Controller
         }
 
         throw new NotFoundHttpException('La página no existe.');
+    }
+
+    public function actionBusqueda()
+    {
+        $usuarios = new ActiveDataProvider([
+            'query' => Usuarios::find()->where('1=0'),
+        ]);
+        $comentarios = new ActiveDataProvider([
+            'query' => Comentarios::find()->where('1=0'),
+        ]);
+
+        if (($cadena = Yii::$app->request->get('cadena', ''))) {
+            $usuarios->query->where(['ilike', 'log_us', $cadena]);
+            $comentarios->query->where(['ilike', 'text', $cadena]);
+        }
+
+        return $this->render('busqueda', [
+            'usuarios' => $usuarios,
+            'comentarios' => $comentarios,
+            'cadena' => $cadena,
+        ]);
     }
 }
