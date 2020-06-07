@@ -27,6 +27,12 @@ class SeguidoresController extends Controller
         ];
     }
 
+    /**
+     * Comprueba si esta siguiendo a al usuario, si no lo sigue empieza a seguirlo y si lo sigue deja de seguirlo.
+     *
+     * @param [type] $seguido_id
+     * @return void
+     */
     public function actionFollow($seguido_id)
     {
         $model = Seguidores::find()->andWhere([
@@ -52,27 +58,6 @@ class SeguidoresController extends Controller
     }
 
     /**
-     * Updates an existing Seguidores model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $seguidor_id
-     * @param integer $seguido_id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($seguidor_id, $seguido_id)
-    {
-        $model = $this->findModel($seguidor_id, $seguido_id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'seguidor_id' => $model->seguidor_id, 'seguido_id' => $model->seguido_id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Finds the Seguidores model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $seguidor_id
@@ -89,6 +74,12 @@ class SeguidoresController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * Se usa para comprobar la existencia del seguimeinto con ajax en la vista.
+     *
+     * @param [type] $seguido_id
+     * @return void
+     */
     public function siguiendo($seguido_id)
     {
         $seguido = Seguidores::find()->where([
@@ -99,6 +90,12 @@ class SeguidoresController extends Controller
         return $seguido->exists();
     }
 
+    /**
+     * Lista los seguidores de un usuario.
+     *
+     * @param [type] $usuario_id
+     * @return void
+     */
     public function actionSeguidores($usuario_id)
     {
         $usuario = Usuarios::findOne(['id' => $usuario_id]);
@@ -112,6 +109,12 @@ class SeguidoresController extends Controller
         ]);
     }
 
+    /**
+     * Lista a la gente que sigue un usuario.
+     *
+     * @param [type] $usuario_id
+     * @return void
+     */
     public function actionSeguidos($usuario_id)
     {
         $usuarios = Seguidores::find()->where(['seguidor_id' => $usuario_id])->select('seguido_id')->column();

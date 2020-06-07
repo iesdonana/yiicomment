@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use app\models\comfav;
-use app\models\comfavSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,11 +12,6 @@ use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\data\Pagination;
 
-
-
-/**
- * ComfavController implements the CRUD actions for comfav model.
- */
 class ComfavController extends Controller
 {
     /**
@@ -28,34 +22,15 @@ class ComfavController extends Controller
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
             ],
         ];
     }
 
     /**
-     * Lists all comfav models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new comfavSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single comfav model.
-     * @param integer $usuario_id
-     * @param integer $comentario_id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * Lista todos los comentarios favoritos del usuario.
+     *
+     * @param [type] $id
+     * @return void
      */
     public function actionView($id)
     {
@@ -93,6 +68,12 @@ class ComfavController extends Controller
         ]);
     }
 
+    /**
+     * Comprueba si el usuario actual tiene el comentario guardado, si lo tiene lo elimina y si no lo crea.
+     *
+     * @param [type] $comentario_id
+     * @return void
+     */
     public function actionComfav($comentario_id)
     {
         $model = comfav::find()->andWhere([

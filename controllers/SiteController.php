@@ -13,7 +13,6 @@ use app\models\Megustas;
 use app\models\Usuarios;
 use yii\data\Pagination;
 
-
 class SiteController extends Controller
 {
     /**
@@ -64,7 +63,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Te enseña los comentarios del usuario y los comentarios de los usuarios a los que sigues.
      *
      * @return string
      */

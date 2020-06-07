@@ -6,7 +6,6 @@ use app\models\Comentarios;
 use Yii;
 use app\models\Megustas;
 use app\models\Usuarios;
-use app\models\MegustasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,30 +28,7 @@ class MegustasController extends Controller
     }
 
     /**
-     * Displays a single Megustas model.
-     * @param integer $usuario_id
-     * @param integer $comentario_id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($comentario_id)
-    {
-        $comentario = Comentarios::findOne(['id' => $comentario_id]);
-        
-        $usuarios = $comentario->getMegustas()->select('usuario_id')->column();
-
-        $query = Usuarios::find()->where(['id' => $usuarios])->all();
-
-
-        return $this->render('view', [
-            'usuarios' => $query,
-
-        ]);
-    }
-
-    /**
-     * Creates a new Megustas model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Comprueba si el usuario ha dado like al comentario, si le ha dado lo elimina y si no lo crea.
      * @return mixed
      */
     public function actionLike($comentario_id)

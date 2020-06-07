@@ -7,11 +7,9 @@ use app\models\Comentarios;
 use app\models\ComentariosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use app\models\Seguidores;
 use yii\filters\AccessControl;
 use app\models\Usuarios;
-use app\models\UsuariosSearch;
 
 class ComentariosController extends Controller
 {
@@ -36,7 +34,7 @@ class ComentariosController extends Controller
     }
 
     /**
-     * Displays a single Comentarios model.
+     * Vista de un comentario.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,26 +56,10 @@ class ComentariosController extends Controller
     }
 
     /**
-     * Creates a new Comentarios model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * Solo deja pasar al usuario admin y es para administrar comentarios
+     *
+     * @return void
      */
-    public function actionCreate()
-    {
-        $id = Yii::$app->user->id;
-
-        if ($id === null) {
-            Yii::$app->session->setFlash('error', 'Debe estar logueado.');
-            return $this->goHome();
-        }
-
-        $model = new Comentarios(['usuario_id' => $id]);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index.php');
-        }
-    }
-
     public function actionIndex()
     {
         $id = Yii::$app->user->id;
@@ -98,14 +80,15 @@ class ComentariosController extends Controller
     }
 
     /**
-     * 
+     * Recibe el id del comentario y lo elimina.
      * @param integer $id
      * @return void
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = Comentarios::findOne(['id' => $id]);
+
+        $model->delete();
 
         return $this->goHome();
     }

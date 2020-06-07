@@ -15,8 +15,6 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 
-
-
 class UsuariosController extends Controller
 {
     /**
@@ -275,6 +273,11 @@ class UsuariosController extends Controller
         throw new NotFoundHttpException('La página no existe.');
     }
 
+    /**
+     * Busqueda de text y log_us de usuario en las tablas Usuarios y Comentarios.
+     *
+     * @return void
+     */
     public function actionBusqueda()
     {
         $usuarios = new ActiveDataProvider([
