@@ -10,7 +10,7 @@ use app\models\comfav;
 $this->params['breadcrumbs'][] = $this->title;
 $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
 $url = Url::to(['seguidores/follow']);
-$this->title = 'Comentario de ' . $user->log_us ;
+$this->title = 'Comentario de ' . $user->log_us;
 $js = <<<EOT
 var boton = $("#siguiendo");
 boton.click(function(event) {
@@ -64,7 +64,11 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
                     <div class="card-header">
                         <div class="row">
                             <div class="col-2 d-flex justify-content-center">
-                                <img src="user.svg" alt="" id="user">
+                                <?php if ($user['url_img'] == 'user.svg') : ?>
+                                    <img src="user.svg" id="user">
+                                <?php else : ?>
+                                    <?= Html::img(Yii::getAlias('@uploads') . '/' . $user->url_img) ?>
+                                <?php endif; ?>
                             </div>
                             <div class="col-8">
                                 <?= Html::a($user['log_us'], ['usuarios/view', 'id' => $user->id], ['class' => 'text-light']) ?>
@@ -127,7 +131,11 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
                 <h1><?= $user['log_us'] ?></h1>
             </div>
             <div class="col-12 d-flex justify-content-center">
-                <img src="user.svg" alt="" id="profile">
+                <?php if ($user['url_img'] == 'user.svg') : ?>
+                    <img src="user.svg" id="profile">
+                <?php else : ?>
+                    <?= Html::img(Yii::getAlias('@uploads') . '/' . $user->url_img) ?>
+                <?php endif; ?>
             </div>
             <div class="col-12">
                 <hr>

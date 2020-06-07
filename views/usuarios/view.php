@@ -80,7 +80,11 @@ Yii::$app->formatter->locale = 'ES';
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-2 d-flex justify-content-center">
-                                    <img src="user.svg" alt="" id="user">
+                                    <?php if ($model['url_img'] == 'user.svg') : ?>
+                                        <img src="user.svg" id="user">
+                                    <?php else : ?>
+                                        <?= Html::img(Yii::getAlias('@uploads') . '/' . $model->url_img) ?>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-8">
                                     <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
@@ -154,7 +158,11 @@ Yii::$app->formatter->locale = 'ES';
                 <h1 itemprop="name" class="text-light"><?= $model['log_us'] ?></h1>
             </div>
             <div class="col-12 d-flex justify-content-center" itemscope itemtype="http://schema.org/Person">
-                <img itemprop="image" src="user.svg" alt="" id="profile">
+                <?php if ($model['url_img'] == 'user.svg') : ?>
+                    <img src="user.svg" id="profile">
+                <?php else : ?>
+                    <?= Html::img(Yii::getAlias('@uploads') . '/' . $model->url_img) ?>
+                <?php endif; ?>
             </div>
             <div class="col-12">
                 <hr>
@@ -176,7 +184,7 @@ Yii::$app->formatter->locale = 'ES';
             </div>
             <div class="col-12 d-flex justify-content-center">
                 <?php if ($seguido_id == Yii::$app->user->id) : ?>
-                    <?= Html::a('Editar', ['usuarios/update'], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
+                    <?= Html::a('Editar', ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
                 <?php else : ?>
                     <?= Html::a(Seguidores::siguiendo($seguido_id) ? 'Dejar de seguir' : 'Seguir', ['seguidores/follow', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
                 <?php endif; ?>
@@ -196,7 +204,7 @@ Yii::$app->formatter->locale = 'ES';
             <div class="col-2 d-flex justify-content-end">
                 <img src="placeholder.svg" id="location">
             </div>
-            <div class="col-10" itemscope itemtype="http://schema.org/Person"> 
+            <div class="col-10" itemscope itemtype="http://schema.org/Person">
                 <p itemprop="address"><?= $model['ubi'] ?></p>
             </div>
         </div>

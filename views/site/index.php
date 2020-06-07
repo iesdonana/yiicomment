@@ -63,7 +63,11 @@ $usuarios = Usuarios::find()->where(['IN', 'id', $ids])->all();
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-2 d-flex justify-content-center">
-                                            <img src="user.svg" alt="" id="user">
+                                            <?php if ($model['url_img'] == 'user.svg') : ?>
+                                                <img src="user.svg" id="user">
+                                            <?php else : ?>
+                                                <?= Html::img(Yii::getAlias('@uploads') . '/' . $model->url_img) ?>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="col-8">
                                             <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light log']) ?>
@@ -143,7 +147,11 @@ $usuarios = Usuarios::find()->where(['IN', 'id', $ids])->all();
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-4 d-flex justify-content-center">
-                                            <img src="user.svg" id="user">
+                                            <?php if ($usuario['url_img'] == 'user.svg') : ?>
+                                                <img src="user.svg" id="user">
+                                            <?php else : ?>
+                                                <?= Html::img(Yii::getAlias('@uploads') . '/' . $usuario->url_img) ?>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="col-8">
                                             <?= Html::a($usuario['log_us'], ['usuarios/view', 'id' => $usuario['id']], ['class' => 'text-light']) ?>

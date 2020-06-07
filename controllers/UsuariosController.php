@@ -15,6 +15,8 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 
+require '../web/uploads3.php';
+
 class UsuariosController extends Controller
 {
     /**
@@ -246,9 +248,15 @@ class UsuariosController extends Controller
         $num_segr = count($seguidores);
         $num_sego = count($seguidos);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Se ha modificado tu perfil.');
-            return $this->redirect(['usuarios/view', 'id' => $model['id']]);
+        if ($model->load(Yii::$app->request->post())) {
+            if (!empty($_FILES)) {
+                uploadImagen($model);
+                $model->url_img = $_FILES['Usuarios']['name']['url_img'];
+            }
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Se ha modificado tu perfil.');
+                return $this->redirect(['usuarios/view', 'id' => $model['id']]);
+            }
         }
 
         return $this->render('update', [

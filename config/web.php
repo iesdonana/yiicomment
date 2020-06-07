@@ -13,6 +13,7 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@uploads' => 'https://s3.us-east-2.amazonaws.com/dflorido.images/'
     ],
     'language' => 'es-ES',
     'components' => [

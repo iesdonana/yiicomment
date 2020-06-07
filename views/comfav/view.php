@@ -83,7 +83,11 @@ Yii::$app->formatter->locale = 'ES';
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-2 d-flex justify-content-center">
-                                    <img src="user.svg" alt="" id="user">
+                                    <?php if ($model['url_img'] == 'user.svg') : ?>
+                                        <img src="user.svg" id="user">
+                                    <?php else : ?>
+                                        <?= Html::img(Yii::getAlias('@uploads') . '/' . $model->url_img) ?>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-8">
                                     <?= Html::a($log['log_us'], ['usuarios/view', 'id' => $id], ['class' => 'text-light']) ?>
@@ -157,7 +161,11 @@ Yii::$app->formatter->locale = 'ES';
                 <h1 class="text-light"><?= $model['log_us'] ?></h1>
             </div>
             <div class="col-12 d-flex justify-content-center">
-                <img src="user.svg" alt="" id="profile">
+                <?php if ($model['url_img'] == 'user.svg') : ?>
+                    <img src="user.svg" id="profile">
+                <?php else : ?>
+                    <?= Html::img(Yii::getAlias('@uploads') . '/' . $model->url_img) ?>
+                <?php endif; ?>
             </div>
             <div class="col-12">
                 <hr>
