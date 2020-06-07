@@ -2,9 +2,7 @@
 
 use app\models\Megustas;
 use app\models\Seguidores;
-use Symfony\Component\VarDumper\VarDumper;
 use yii\bootstrap4\Html;
-use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 use app\models\Usuarios;
 use yii\bootstrap4\LinkPager;
@@ -152,26 +150,26 @@ Yii::$app->formatter->locale = 'ES';
     </div>
     <div class="col-4 card" style="border: none">
         <div class="row card-body" id="d">
-            <div class="col-12 d-flex justify-content-center">
-                <h1 class="text-light"><?= $model['log_us'] ?></h1>
+            <div class="col-12 d-flex justify-content-center" itemscope itemtype="http://schema.org/Person">
+                <h1 itemprop="name" class="text-light"><?= $model['log_us'] ?></h1>
             </div>
-            <div class="col-12 d-flex justify-content-center">
-                <img src="user.svg" alt="" id="profile">
+            <div class="col-12 d-flex justify-content-center" itemscope itemtype="http://schema.org/Person">
+                <img itemprop="image" src="user.svg" alt="" id="profile">
             </div>
             <div class="col-12">
                 <hr>
             </div>
-            <div class="col-6 d-flex justify-content-center">
-                <h6 class="text-light">Seguidores</h6>
+            <div class="col-6 d-flex justify-content-center" itemscope itemtype="http://schema.org/Person">
+                <h6 itemprop="follows" class="text-light">Seguidores</h6>
             </div>
-            <div class="col-6 d-flex justify-content-center">
-                <h6 class="text-light">Seguidos</h6>
+            <div class="col-6 d-flex justify-content-center" itemscope itemtype="http://schema.org/Person">
+                <h6 itemprop="follows" class="text-light">Seguidos</h6>
             </div>
-            <div class="col-6 d-flex justify-content-center">
-                <h6><?= Html::a($num_segr, ['seguidores/seguidores', 'usuario_id' => $model['id'], ['id' => 'seguidores']]) ?></h6>
+            <div class="col-6 d-flex justify-content-center" itemscope itemtype="http://schema.org/Person">
+                <h6 itemprop="follows"><?= Html::a($num_segr, ['seguidores/seguidores', 'usuario_id' => $model['id'], ['id' => 'seguidores']]) ?></h6>
             </div>
-            <div class="col-6 d-flex justify-content-center">
-                <h6><?= Html::a($num_sego, ['seguidores/seguidos', 'usuario_id' => $model['id'], ['id' => 'seguidores']]) ?></h6>
+            <div class="col-6 d-flex justify-content-center" itemscope itemtype="http://schema.org/Person">
+                <h6 itemprop="follows"><?= Html::a($num_sego, ['seguidores/seguidos', 'usuario_id' => $model['id'], ['id' => 'seguidores']]) ?></h6>
             </div>
             <div class="col-12">
                 <hr>
@@ -198,8 +196,8 @@ Yii::$app->formatter->locale = 'ES';
             <div class="col-2 d-flex justify-content-end">
                 <img src="placeholder.svg" id="location">
             </div>
-            <div class="col-10">
-                <p><?= $model['ubi'] ?></p>
+            <div class="col-10" itemscope itemtype="http://schema.org/Person"> 
+                <p itemprop="address"><?= $model['ubi'] ?></p>
             </div>
         </div>
     </div>
