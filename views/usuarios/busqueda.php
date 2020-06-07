@@ -6,7 +6,7 @@ use yii\bootstrap4\Html;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
-$this->title = 'My Yii Application';
+$this->title = 'YiiComment: Busqueda';
 ?>
 <div class="site-index">
 
@@ -36,6 +36,11 @@ $this->title = 'My Yii Application';
                         'apellido',
                         'email',
                         'bio',
+                        [
+                            'class' => ActionColumn::class,
+                            'controller' => 'usuarios',
+                            'template' => '{view}',
+                        ],
                     ],
                 ]) ?>
             </div>
@@ -47,7 +52,12 @@ $this->title = 'My Yii Application';
                     'dataProvider' => $comentarios,
                     'columns' => [
                         'text',
-                        'created_at'
+                        'created_at',
+                        [
+                            'class' => ActionColumn::class,
+                            'controller' => 'comentarios',
+                            'template' => '{view}',
+                        ],
                     ],
                 ]) ?>
             </div>
