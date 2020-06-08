@@ -1,24 +1,22 @@
 # Descripción general del proyecto
 
-Explicar.
+YiiComment pretende ser un sitio web muy similar a twitter, donde un usuario logueado puede crear comentarios, seguir a ususarios, guardar los comentarios e indicar que le gusta.
 
 ## Funcionalidad principal de la aplicación
 
-Explicar.
+Una red social donde compartir un texto, un pensamiento o algo que te interese.
 
 ## Objetivos generales
 
-A diferencia de los casos de uso, los objetivos no tienen principio ni fin.
-
-Por ejemplo:
-
-* Objetivo: "gestionar los alquileres y las devoluciones de las películas".
-* Casos de uso: "alquilar una película", "devolver una película".
+* Crear comentarios.
+* Compartir comentarios.
+* Seguir a ususarios.
+* Ver comentarios de otros usuarios.
 
 ## URL del repositorio
 
-[https://github.com/ricpelo/proyecto](https://github.com/ricpelo/proyecto)
+[https://github.com/dtallafigo/yiicomment](https://github.com/dtallafigo/yiicomment)
 
 ## URL de la documentación
 
-[https://ricpelo.github.io/proyecto](https://ricpelo.github.io/proyecto)
+[https://dtallafigo.github.io/yiicomment](https://dtallafigo.github.io/yiicomment)

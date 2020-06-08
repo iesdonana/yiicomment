@@ -187,7 +187,7 @@ Yii::$app->formatter->locale = 'ES';
             </div>
             <div class="col-12 d-flex justify-content-center">
                 <?php if ($seguido_id == Yii::$app->user->id) : ?>
-                    <?= Html::a('Editar', ['usuarios/update'], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
+                    <?= Html::a('Editar', ['usuarios/update'], ['class' => 'btn btn-success text-light']) ?>
                 <?php else : ?>
                     <?= Html::a(Seguidores::siguiendo($seguido_id) ? 'Dejar de seguir' : 'Seguir', ['seguidores/follow', 'seguido_id' => $seguido_id], ['class' => 'btn btn-success text-light', 'id' => 'siguiendo']) ?>
                 <?php endif; ?>

@@ -52,6 +52,27 @@ class MegustasController extends Controller
     }
 
     /**
+     * Lista todos los usuarios que le han dado like a un comentario.
+     *
+     * @param [type] $comentario_id
+     * @return void
+     */
+    public function actionView($comentario_id)
+    {
+        $comentario = Comentarios::findOne(['id' => $comentario_id]);
+
+        $usuarios = $comentario->getMegustas()->select('usuario_id')->column();
+
+        $query = Usuarios::find()->where(['id' => $usuarios])->all();
+
+
+        return $this->render('view', [
+            'usuarios' => $query,
+
+        ]);
+    }
+
+    /**
      * Finds the Megustas model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $usuario_id
