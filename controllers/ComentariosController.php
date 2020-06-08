@@ -21,10 +21,10 @@ class ComentariosController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['view', 'create', 'delete'],
+                'only' => ['create', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['view', 'create', 'delete'],
+                        'actions' => ['create', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -62,13 +62,13 @@ class ComentariosController extends Controller
      */
     public function actionIndex()
     {
-        $id = Yii::$app->user->id;
-        $usuario = Usuarios::findOne(['id' => $id]);
+       // $id = Yii::$app->user->id;
+       // $usuario = Usuarios::findOne(['id' => $id]);
 
-        if ($usuario['log_us'] != 'admin') {
-            Yii::$app->session->setFlash('error', 'Si no eres admin no puedes entrar aqui :( .');
-            return $this->redirect(['site/index']);
-        }
+        //if ($usuario['log_us'] != 'admin') {
+        //    Yii::$app->session->setFlash('error', 'Si no eres admin no puedes entrar aqui :( .');
+        //    return $this->redirect(['site/index']);
+        //}
 
         $searchModel = new ComentariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

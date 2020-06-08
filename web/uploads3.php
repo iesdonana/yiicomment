@@ -29,7 +29,7 @@ use Aws\S3\S3Client;
 function uploadImagen($model)
 {
     // AWS Info
-    $bucketName = 'dflorido.images';
+    $bucketName = 'imagesflorido';
     $IAM_KEY = getenv('IAM_KEY');
     $IAM_SECRET = getenv('IAM_SECRET');
 
@@ -45,7 +45,7 @@ function uploadImagen($model)
                     'secret' => $IAM_SECRET,
                 ],
                 'version' => 'latest',
-                'region' => 'us-east-2',
+                'region' => 'eu-west-3',
             ]
         );
 
@@ -66,7 +66,7 @@ function uploadImagen($model)
                     'secret' => $IAM_SECRET,
                 ],
                 'version' => 'latest',
-                'region' => 'us-east-2',
+                'region' => 'eu-west-3',
             ]
         );
     } catch (Exception $e) {
@@ -79,7 +79,7 @@ function uploadImagen($model)
     var_dump($_FILES['Usuarios']['tmp_name']['url_img']);
 
     $keyName = basename($_FILES['Usuarios']['name']['url_img']);
-    $pathInS3 = 'https://s3.us-east-2.amazonaws.com/' . $bucketName . '/' . $keyName;
+    $pathInS3 = 'https://s3.eu-west-3.amazonaws.com/' . $bucketName . '/' . $keyName;
     // Add it to S3
     try {
         // Uploaded:
@@ -98,6 +98,19 @@ function uploadImagen($model)
     } catch (Exception $e) {
         die('Error:' . $e->getMessage());
     }
+}
+
+function s3GetUrl($name, $bucket)
+{
+    $credentials = new \Aws\Credentials\Credentials(getenv('IAM_KEY'), getenv('IAM_SECRET'));
+
+    $s3Client = new S3Client([
+        'version' => 'latest',
+        'region' => 'eu-west-3',
+        'credentials' => $credentials
+    ]);
+
+    return $s3Client->getObjectUrl($bucket, $name);
 }
 // Now that you have it working, I recommend adding some checks on the files.
 // Example: Max size, allowed file types, etc.

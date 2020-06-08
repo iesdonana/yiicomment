@@ -83,7 +83,7 @@ Yii::$app->formatter->locale = 'ES';
                                     <?php if ($model['url_img'] == 'user.svg') : ?>
                                         <img src="user.svg" id="user">
                                     <?php else : ?>
-                                        <?= Html::img(Yii::getAlias('@uploads') . '/' . $model->url_img) ?>
+                                        <?= Html::img($model->getUrl()) ?>
                                     <?php endif; ?>
                                 </div>
                                 <div class="col-8">

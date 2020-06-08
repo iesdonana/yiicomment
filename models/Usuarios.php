@@ -204,4 +204,9 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Usuarios::className(), ['id' => 'seguidor_id'])->viaTable('seguidores', ['seguido_id' => 'id']);
     }
+
+    public function getUrl()
+    {
+        return s3GetUrl($this->url_img, 'imagenesflorido');
+    }
 }

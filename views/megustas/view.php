@@ -1,7 +1,6 @@
 <?php
 
 use yii\bootstrap4\Html;
-use yii\widgets\DetailView;
 
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
