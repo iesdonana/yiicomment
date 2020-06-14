@@ -24,7 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'text',
             'created_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+             'template' => '{view} {delete}'],
         ],
     ]); ?>
 
