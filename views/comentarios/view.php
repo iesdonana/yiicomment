@@ -6,6 +6,7 @@ use app\models\Megustas;
 use yii\helpers\Url;
 use app\models\Seguidores;
 use app\models\comfav;
+use kartik\social\TwitterPlugin;
 
 $this->params['breadcrumbs'][] = $this->title;
 $user = Usuarios::find()->where(['id' => $model->usuario_id])->one();
@@ -72,6 +73,9 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
                             </div>
                             <div class="col-6">
                                 <?= Html::a($user['log_us'], ['usuarios/view', 'id' => $user->id], ['class' => 'text-light']) ?>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <?= TwitterPlugin::widget(['type'=>TwitterPlugin::SHARE, 'settings' => ['size'=>'default']]); ?>    
                             </div>
                             <div class="col-2 d-flex justify-content-center">
                                 <small><?= Yii::$app->formatter->asDate($model['created_at']); ?></small>

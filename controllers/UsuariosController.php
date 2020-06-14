@@ -58,7 +58,7 @@ class UsuariosController extends Controller
         $dataProvider = $userSearch->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'userSearch$userSearch' => $userSearch,
+            'userSearch' => $userSearch,
             'dataProvider' => $dataProvider,
         ]);
     }

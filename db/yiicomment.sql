@@ -73,7 +73,7 @@ CREATE TABLE seguidores
 );
 
 INSERT INTO usuarios (log_us, nombre, apellido, email, password, rol, auth_key)
-VALUES  ('esscart', 'david', 'florido', 'david.xipi99@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
+VALUES  ('florido', 'david', 'florido', 'david.xipi99@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
         ('admin', 'admin', 'admin', 'yiicomment@gmail.com', crypt('admin', gen_salt('bf', 10)), 'admin', ''),
         ('mike', 'miguel', 'sierra', 'jose@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
         ('saborido', 'Jose Maria', 'monge', 'saborido@hotmail.com', crypt('hola', gen_salt('bf', 10)), 'usuario', ''),
@@ -84,7 +84,25 @@ VALUES  ('esscart', 'david', 'florido', 'david.xipi99@hotmail.com', crypt('hola'
 INSERT INTO comentarios (usuario_id, text)
 VALUES  (3, 'este es mi primer comentario'),
         (3, 'hola'),
-        (2, 'buenas noches');
+        (4, 'Estoy usando yiicomment'),
+        (6, 'Es la primera vez que comento'),
+        (5, 'Ya queda menos'),
+        (1, 'Pinta mal la pandemia'),
+        (2, 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem'),
+        (4, 'buenas noches'),
+        (5, 'primer comentario'),
+        (3, 'se ve chula la aplicacion'),
+        (1, 'ni tan mal'),
+        (4, 'ya se esta acabando el tfg'),
+        (6, 'mañana mas'),
+        (4, 'viva el betis'),
+        (6, 'php es mejor que java');
 
 INSERT INTO seguidores (seguidor_id, seguido_id)
-VALUES (3, 1);
+VALUES  (3, 1),
+        (1, 3),
+        (4, 5),
+        (1, 6),
+        (7, 5),
+        (2, 1),
+        (3, 4);

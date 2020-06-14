@@ -46,19 +46,20 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => [
+                Yii::$app->user->id == 2 ? (['label' => 'AdminUser', 'url' => ['/usuarios/index']]) :
                 ['label' => 'Inicio', 'url' => ['/site/index']],
+                Yii::$app->user->id == 2 ? (['label' => 'AdminComent', 'url' => ['/comentarios/index']]) :
                 ['label' => 'Busqueda', 'url' => ['usuarios/busqueda']],
                 ['label' => 'Perfil', 'url' => ['usuarios/view', 'id' => Yii::$app->user->id]],
                 [
                     'label' => Yii::$app->user->isGuest ? 'Usuarios' : $log['log_us'],
                     'items' => [
-                        Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : (Html::beginForm(['/site/logout'], 'post')
+                        Yii::$app->user->isGuest ? (['label' => 'Registrarse', 'url' => ['usuarios/registrar']]) : (Html::beginForm(['/site/logout'], 'post')
                             . Html::submitButton(
                                 'Logout (' . Yii::$app->user->identity->log_us . ')',
                                 ['class' => 'dropdown-item'],
                             )
-                            . Html::endForm()),
-                        ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
+                            . Html::endForm())
                     ],
                 ],
             ],
