@@ -41,14 +41,7 @@ class ComentariosController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-
-        $seguir = Seguidores::find()
-
-        ->andWhere([
-            'seguidor_id' => Yii::$app->user->id,
-            'seguido_id' => $id
-        ])->one();
+        $model = Comentarios::findOne($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -62,13 +55,13 @@ class ComentariosController extends Controller
      */
     public function actionIndex()
     {
-       // $id = Yii::$app->user->id;
-       // $usuario = Usuarios::findOne(['id' => $id]);
+        $id = Yii::$app->user->id;
+        $usuario = Usuarios::findOne(['id' => $id]);
 
-        //if ($usuario['log_us'] != 'admin') {
-        //    Yii::$app->session->setFlash('error', 'Si no eres admin no puedes entrar aqui :( .');
-        //    return $this->redirect(['site/index']);
-        //}
+        if ($usuario['log_us'] != 'admin') {
+            Yii::$app->session->setFlash('error', 'Si no eres admin no puedes entrar aqui :( .');
+            return $this->redirect(['site/index']);
+        }
 
         $searchModel = new ComentariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
