@@ -70,10 +70,10 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
                                     <?= Html::img(Yii::getAlias('@uploads') . '/' . $user->url_img) ?>
                                 <?php endif; ?>
                             </div>
-                            <div class="col-6">
+                            <div class="col-8">
                                 <?= Html::a($user['log_us'], ['usuarios/view', 'id' => $user->id], ['class' => 'text-light']) ?>
                             </div>
-                            <div class="col-2 d-flex justify-content-center">
+                            <div class="col-4 d-flex justify-content-center">
                                 <small><?= Yii::$app->formatter->asDate($model['created_at']); ?></small>
                             </div>
                         </div>
