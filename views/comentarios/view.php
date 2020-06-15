@@ -40,7 +40,7 @@ $seguidores = Seguidores::find()->where(['seguido_id' => $model['id']])->all();
 $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
 ?>
 <div class="row">
-    <div class="col-8">
+    <div class="col-lg-8 col-sm-12">
         <?php
         $url1 = Url::to(['comentarios/view', 'id' => $model['id']]);
         $url3 = Url::to(['comentarios/delete', 'id' => $model['id']]);
@@ -70,10 +70,10 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
                                     <?= Html::img(Yii::getAlias('@uploads') . '/' . $user->url_img) ?>
                                 <?php endif; ?>
                             </div>
-                            <div class="col-8">
+                            <div class="col-6">
                                 <?= Html::a($user['log_us'], ['usuarios/view', 'id' => $user->id], ['class' => 'text-light']) ?>
                             </div>
-                            <div class="col-4 d-flex justify-content-center">
+                            <div class="col-2 d-flex justify-content-center">
                                 <small><?= Yii::$app->formatter->asDate($model['created_at']); ?></small>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ $seguidos = Seguidores::find()->where(['seguidor_id' => $model['id']])->all();
             </div>
         </div>
     </div>
-    <div class="col-4 card" style="border: none">
+    <div class="col-12 col-md-4 card" style="border: none">
         <div class="row card-body" id="d">
             <div class="col-12 d-flex justify-content-center">
                 <h1><?= $user['log_us'] ?></h1>

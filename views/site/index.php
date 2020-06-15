@@ -20,7 +20,7 @@ $usuarios = Usuarios::find()->where(['IN', 'id', $ids])->all();
 <div class="row">
     <div class="col">
         <div class="row">
-            <div class="col-8">
+            <div class="col-12 col-md-8">
                 <div class="row">
                     <div class="col-12">
                         <h1><?= Html::encode('Bienvenido ' . $model->log_us) ?></h1>
@@ -138,7 +138,7 @@ $usuarios = Usuarios::find()->where(['IN', 'id', $ids])->all();
                     ]); ?>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <div class="row">
                     <div class="col-12">
                         <h4>A quien seguir</h4>

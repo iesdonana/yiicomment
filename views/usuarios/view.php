@@ -39,15 +39,15 @@ $this->registerJs($js);
 Yii::$app->formatter->locale = 'ES';
 ?>
 <div class="row">
-    <div class="col-8">
+    <div class="col-12 col-md-8">
         <div class="row">
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-12 col-md-4 d-flex justify-content-center">
                 <h4><?= Html::a('Comentarios', ['usuarios/view', 'id' => $seguido_id]) ?></h4>
             </div>
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-12 col-md-4 d-flex justify-content-center">
                 <h4><?= Html::a('Likes', ['usuarios/like', 'id' => $seguido_id]) ?></h4>
             </div>
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-12 col-md-4 d-flex justify-content-center">
                 <h4><?= Html::a('Favoritos', ['comfav/view', 'id' => $seguido_id]) ?></h4>
             </div>
         </div>
@@ -152,7 +152,7 @@ Yii::$app->formatter->locale = 'ES';
             'pagination' => $pagination
         ]); ?>
     </div>
-    <div class="col-4 card" style="border: none">
+    <div class="col-12 col-md-4 card" style="border: none">
         <div class="row card-body" id="d">
             <div class="col-12 d-flex justify-content-center" itemscope itemtype="http://schema.org/Person">
                 <h1 itemprop="name" class="text-light"><?= $model['log_us'] ?></h1>
